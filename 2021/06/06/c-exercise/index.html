@@ -1,0 +1,1074 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="baidu-site-verification" content="izYGvTM67i" />
+    
+        <meta name="keywords" content="code," />
+    
+    <meta name="description" content="1. 单词检查【问题描述】 已知有一个正确单词索引表（保存在当前目录下的文件index.txt中，且全为小写字母，按照字典序由小到大排列，每个单词独占一行），编写程序利用该单词表对某一英文文章（保存在当前目录下的另一个文件in.txt中）进行单词正确性检查，若该英文文章中出现的单词（只有连续字母组成）没有出现在单词索引文件中（检查时大小写无关），则将该出错的单词（其中的字母全部转换为小写）输出到当">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c语言编程题">
+<meta property="og:url" content="https://duskdust.eu.org/2021/06/06/c-exercise/index.html">
+<meta property="og:site_name" content="duskdust&#39;s blog">
+<meta property="og:description" content="1. 单词检查【问题描述】 已知有一个正确单词索引表（保存在当前目录下的文件index.txt中，且全为小写字母，按照字典序由小到大排列，每个单词独占一行），编写程序利用该单词表对某一英文文章（保存在当前目录下的另一个文件in.txt中）进行单词正确性检查，若该英文文章中出现的单词（只有连续字母组成）没有出现在单词索引文件中（检查时大小写无关），则将该出错的单词（其中的字母全部转换为小写）输出到当">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622555594000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556227000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556279000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556643000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556752000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556860000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622557028000.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622557052000.jpg">
+<meta property="article:published_time" content="2021-06-06T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-09T07:41:36.568Z">
+<meta property="article:author" content="duskdust">
+<meta property="article:tag" content="code">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622555594000.png">
+    <title>c语言编程题 | duskdust&#39;s blog</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    
+        
+            <link rel="stylesheet" href="/css/fonts.css">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/gitment.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+    
+    <!-- 
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65849732";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+     -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123139263-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-123139263-1');
+    </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    duskdust&#39;s blog
+                </div>
+                <div id="hot-comments" class="header-subtitle">
+                    请往前走，不要回头 。
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    
+                        <span class="header-nav">
+                            <a href="/">主页</a>
+                        </span>
+                    
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    
+                        <span class="header-nav">
+                            <a href="/tags">Tags</a>
+                        </span>
+                    
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    
+                        <span class="header-nav">
+                            <a href="/links">Links</a>
+                        </span>
+                    
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    
+                        <span class="header-nav">
+                            <a href="/about">About</a>
+                        </span>
+                    
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title">c语言编程题</h1>
+    
+        <h2>目录</h2>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%8D%95%E8%AF%8D%E6%A3%80%E6%9F%A5"><span class="toc-text">1. 单词检查</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%89%A9%E5%93%81%E6%8A%98%E6%97%A7%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="toc-text">2. 物品折旧计算器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%AF%94%E8%BE%83%E5%A4%A7%E5%B0%8F%E5%B9%B6%E6%B1%82%E5%92%8C"><span class="toc-text">3. 比较大小并求和</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%AD%97%E6%AF%8D%E5%AF%86%E7%A0%81"><span class="toc-text">4. 字母密码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%95%86%E5%93%81%E4%BC%98%E6%83%A0%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="toc-text">5. 商品优惠计算器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E5%AE%9E%E7%8E%B0"><span class="toc-text">6. 简单的四则运算实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E5%AF%BB%E6%89%BE%E5%AE%8C%E6%95%B0"><span class="toc-text">7. 寻找完数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-C%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83"><span class="toc-text">8. C编程环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-%E7%8C%B4%E5%AD%90%E5%90%83%E6%A1%83%E9%97%AE%E9%A2%98"><span class="toc-text">9. 猴子吃桃问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E6%95%B4%E6%95%B0%E7%9A%84%E5%8A%A0%E6%B3%95"><span class="toc-text">10. 计算两个整数的加法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-%E8%AE%A1%E7%AE%97%E4%B9%98%E6%96%B9%E5%92%8C"><span class="toc-text">11. 计算乘方和</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-%E7%94%B5%E8%B4%B9%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="toc-text">12. 电费计算器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-%E6%95%B0%E5%AD%97%E8%BD%AC%E6%8D%A2%E5%8D%95%E8%AF%8D"><span class="toc-text">13. 数字转换单词</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%A0%E9%99%A4"><span class="toc-text">14. 字符串删除</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15-%E5%8D%95%E8%AF%8D%E7%B4%A2%E5%BC%95%E7%BC%96%E6%8E%92"><span class="toc-text">15. 单词索引编排</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16-%E5%8D%95%E8%AF%8D%E7%B4%A2%E5%BC%95%E7%BC%96%E6%8E%92%EF%BC%88%E9%9D%9E%E6%96%87%E4%BB%B6%EF%BC%89"><span class="toc-text">16. 单词索引编排（非文件）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#17-%E5%88%A4%E6%96%AD%E4%B8%A4%E6%95%B0%E6%8D%AE%E9%9B%86%E6%98%AF%E5%90%A6%E7%9B%B8%E5%90%8C"><span class="toc-text">17. 判断两数据集是否相同</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#18-%E6%A8%A1%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9F%A5%E6%89%BE%E6%9B%BF%E6%8D%A2"><span class="toc-text">18. 模式字符串查找替换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#19-%E6%8A%98%E5%8F%A0%E6%96%B9%E9%98%B5"><span class="toc-text">19. 折叠方阵</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#20-%E6%A8%A1%E6%8B%9F%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E6%A0%BC%E5%BC%8F%E6%8E%A7%E5%88%B6%E8%BE%93%E5%87%BA"><span class="toc-text">20. 模拟浮点数的格式控制输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#56899038-2880954600495056994"><span class="toc-text">56899038.2880954600495056994</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#21-%E4%BA%94%E5%AD%90%E6%A3%8B%E5%8D%B1%E9%99%A9%E5%88%A4%E6%96%AD"><span class="toc-text">21. 五子棋危险判断</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#22-Vigenere%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-text">22. Vigenere加密算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#23-%E5%B0%8F%E6%95%B0%E5%88%86%E6%95%B0%E8%BD%AC%E6%8D%A2"><span class="toc-text">23. 小数分数转换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#24-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9B%BF%E6%8D%A2"><span class="toc-text">24. 字符串替换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#25-%E5%81%B6%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-text">25. 偶数之和</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#26-%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6"><span class="toc-text">26. 区间合并</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#27-%E5%80%8D%E9%80%86%E5%BA%8F%E5%BC%8F%E6%95%B0"><span class="toc-text">27. 倍逆序式数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#28-%E6%95%B4%E6%95%B0%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="toc-text">28. 整数出现次数统计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#29-if%E5%8F%8C%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8"><span class="toc-text">29. if双分支结构简单应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#30-%E6%96%87%E4%BB%B6%E5%8A%A0%E5%AF%86%EF%BC%88%E7%8E%AF%EF%BC%89"><span class="toc-text">30. 文件加密（环）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#31-n%E7%9A%84%E9%98%B6%E4%B9%98"><span class="toc-text">31. n的阶乘</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#32-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%8D%87%E5%BA%8F%E6%95%B4%E6%95%B0%E5%BA%8F%E5%88%97"><span class="toc-text">32. 最长连续升序整数序列</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#33-%E6%9E%9A%E4%B8%BE%E9%87%8F%E5%80%BC"><span class="toc-text">33. 枚举量值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#34-%E8%AE%A1%E7%AE%97%E5%99%A8%EF%BC%88%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%91%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="toc-text">34. 计算器（表达式计算-表达式树实现）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#35-%E5%AF%BB%E6%89%BE%E5%9B%9E%E6%96%87%E6%95%B0"><span class="toc-text">35. 寻找回文数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#36-%E5%AF%BB%E6%89%BE%E5%8F%8C%E8%B4%A8%E6%95%B0"><span class="toc-text">36. 寻找双质数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#37-%E6%95%B0%E5%88%97%E5%89%8Dn%E9%A1%B9%E5%92%8C"><span class="toc-text">37. 数列前n项和</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#38-%E6%B0%B4%E4%BB%99%E8%8A%B1%E6%95%B0"><span class="toc-text">38. 水仙花数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#39-%E9%97%B0%E5%B9%B4%E9%97%AE%E9%A2%98"><span class="toc-text">39. 闰年问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#40-%E6%B1%82%E8%A7%A3%E5%8B%92%E8%AE%A9%E5%BE%B7%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="toc-text">40. 求解勒让德多项式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#41-%E5%82%A8%E8%93%84%E8%B4%A6%E6%88%B7%E4%BD%99%E9%A2%9D%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="toc-text">41. 储蓄账户余额计算器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#42-%E6%B6%88%E9%99%A4%E6%B8%B8%E6%88%8F"><span class="toc-text">42. 消除游戏</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#43-%E6%95%B4%E6%95%B0%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0"><span class="toc-text">43. 整数出现次数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#44-Huffman%E6%96%87%E4%BB%B6%E8%A7%A3%E7%A0%81"><span class="toc-text">44. Huffman文件解码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#45-%E8%AE%A1%E7%AE%97%E5%99%A8%EF%BC%88%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97%EF%BC%89"><span class="toc-text">45. 计算器（表达式计算）</span></a></li></ol>
+        <br>
+    
+    <h1 id="1-单词检查"><a href="#1-单词检查" class="headerlink" title="1. 单词检查"></a>1. 单词检查</h1><p>【问题描述】</p>
+<p>已知有一个正确单词索引表（保存在当前目录下的文件index.txt中，且全为小写字母，按照字典序由小到大排列，每个单词独占一行），编写程序利用该单词表对某一英文文章（保存在当前目录下的另一个文件in.txt中）进行单词正确性检查，若该英文文章中出现的单词（只有连续字母组成）没有出现在单词索引文件中（检查时大小写无关），则将该出错的单词（其中的字母全部转换为小写）输出到当前目录下的另一文件error.txt中，每个单词独占一行，并且以字典序由小到大的顺序输出。<br>假设：<br>1、in.txt中的文章有可能没有经过排版，格式有可能杂乱无章，也有可能没有写完整。<br>2、index.txt中的单词个数不超过1000个，每个单词的长度不超过50个字母。<br>3、若出错的单词多次出现，则多次输出。</p>
+<p>【输入形式】</p>
+<p>保存单词索引表的文件index.txt和保存英文文章的文件in.txt都位于当前目录下。</p>
+<p>【输出形式】</p>
+<p>将出错的单词以字典序由小到大的顺序输出到当前目录下的文件error.txt中，每个单词单独占一行，多次出错的单词多次输出。若没有出现错误单词，则什么也不输出。</p>
+<p>【样例输入1】</p>
+<p>假设文件in.txt内容为：</p>
+<p>There are two verrsions of the international standards for C.<br>Thee first version was ratified in 1989 by the American National<br>Standards Institue (ANS1) C standard committee.It is often<br>referred as ANS1 C or C89. The secand C standard was completed<br>in 1999. This standard is comonly referred to as C99. C99 is a<br>milestone in C’s evolution into a viable programing languga<br>for numerical and scientific computing.</p>
+<p>文件index.txt中的单词索引表内容为：</p>
+<p>a<br>american<br>and<br>ansi<br>are<br>as<br>by<br>c<br>committee<br>commonly<br>completed<br>computing<br>evolution<br>first<br>for<br>in<br>institue<br>international<br>into<br>is<br>it<br>language<br>milestone<br>national<br>numerical<br>of<br>often<br>or<br>programming<br>ratified<br>referred<br>s<br>scientific<br>secand<br>standard<br>standards<br>the<br>there<br>this<br>to<br>two<br>version<br>versions<br>viable<br>was</p>
+<p>【样例输出1】</p>
+<p>文件error.txt中出错的单词应为：</p>
+<p>ans<br>ans<br>comonly<br>languga<br>programing<br>thee<br>verrsions</p>
+<p>【样例1说明】</p>
+<p>用index.txt中的单词索引表对in.txt中出现的每一个单词进行检查，检查时大小写无关，所以第一个单词There出现在索引表中，不是错误单词；单词verrsions没有出现在索引表中，拼写错误，所以作为出错单词输出；单词ANSI拼写成了ANS1，将其中字母都转换为小写后输出，并且多次出现，多次输出；其他出错单词类似。错误单词输出按照字典序由小到大输出到error.txt文件中。</p>
+<p>【样例输入2】</p>
+<p>假设文件in.txt内容为：</p>
+<p>There are two versions of the international standard fo</p>
+<p>文件index.txt中的单词索引表内容为：</p>
+<p>are<br>for<br>international<br>of<br>standards<br>the<br>there<br>two<br>versions</p>
+<p>【样例输出2】</p>
+<p>文件error.txt中出错的单词应为：</p>
+<p>fo<br>standard</p>
+<p>【样例2说明】</p>
+<p>文件in.txt中的单词standard没有出现在索引表文件index.txt中，所以作为错误单词输出。<br>注意：样例2中in.txt文件内容还不完整，最后的单词fo后没有任何字符，fo也没有出现在索引表中，所以也作为错误单词输出。</p>
+<p>【评分标准】本题要求对文章的单词进行检查，提交程序文件名为words.c或words.cpp。</p>
+<h1 id="2-物品折旧计算器"><a href="#2-物品折旧计算器" class="headerlink" title="2. 物品折旧计算器"></a>2. 物品折旧计算器</h1><p>【问题描述】</p>
+<p>某种物品的每年折旧费的线性计算方法如下：每年折旧费=（购买价格-废品价值）/产品设计寿命（年）。而折旧价值的计算方法如下：购买价格-每年折旧费*使用年限。</p>
+<p>请编写一个程序，当输入物品的购买价格、废品价值、产品设计寿命和使用年限后，程序能计算出该物品的每年折旧费（结果保留两位小数），以及在到达某使用年限时的折旧价值（即残余价值，结果保留两位小数）。</p>
+<p>【输入形式】</p>
+<p>在一行内按顺序输入4个数据，分别为购买价格、废品价值、产品设计寿命和使用年限，每两个数据之间用逗号分隔</p>
+<p>【输出形式】</p>
+<p>在一行内按顺序输出每年折旧费和残余价值，用逗号分隔</p>
+<p>【样例输入】</p>
+<p>113.56,20.81,30,7</p>
+<p>【样例输出】</p>
+<p>3.09,91.92</p>
+<p>【样例说明】<br>【评分标准】</p>
+<h1 id="3-比较大小并求和"><a href="#3-比较大小并求和" class="headerlink" title="3. 比较大小并求和"></a>3. 比较大小并求和</h1><p>【问题描述】</p>
+<p>输入4个整数，求其前两个数中较小的数与后两个数中较大的数之和。</p>
+<p>【输入形式】</p>
+<p>输入4个整数，每两个整数之间用逗号分隔</p>
+<p>【输出形式】</p>
+<p>输出1个整数</p>
+<p>【样例输入】</p>
+<p>3,2,1,4</p>
+<p>【样例输出】</p>
+<p>6</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<p>正确性</p>
+<h1 id="4-字母密码"><a href="#4-字母密码" class="headerlink" title="4. 字母密码"></a>4. 字母密码</h1><p>【问题描述】</p>
+<p>从键盘任意输入5个小写英文字母，将其加密后输出。加密规则是：用原来英文字母后面的第4个字母代替原来的字母。例如，小写字母a后面第4个字母是e，e代替a。再如，大写字母w后面第4个字母是a，a代替w。请编程实现上述加密方案。</p>
+<p>【输入形式】</p>
+<p>在一行内连续输入5个小写英文字母原文</p>
+<p>【输出形式】</p>
+<p>在一行内连续输出5个小写英文字母密文</p>
+<p>【样例输入】</p>
+<p>china</p>
+<p>【样例输出】</p>
+<p>glmre</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<h1 id="5-商品优惠计算器"><a href="#5-商品优惠计算器" class="headerlink" title="5. 商品优惠计算器"></a>5. 商品优惠计算器</h1><p>【问题描述】</p>
+<p>使用if语句编程实现输入购货金额，输出实际付款金额。购货折扣率如下：</p>
+<p>购货金额≤500元 不打折</p>
+<p>500元&lt;购货金额≤1000元 9折</p>
+<p>1000元&lt;购货金额 8折</p>
+<p>【输入形式】</p>
+<p>一个浮点数</p>
+<p>【输出形式】</p>
+<p>一个浮点数（保留小数点后两位）</p>
+<p>【样例输入】</p>
+<p>500.01</p>
+<p>【样例输出】</p>
+<p>450.01</p>
+<p>【样例说明】</p>
+<p>无<br>【评分标准】</p>
+<p>正确性</p>
+<h1 id="6-简单的四则运算实现"><a href="#6-简单的四则运算实现" class="headerlink" title="6. 简单的四则运算实现"></a>6. 简单的四则运算实现</h1><p>【问题描述】</p>
+<p>由键盘输入两个整数，分别计算这两个数的和、差、积、商，并输出结果。</p>
+<p>【输入形式】</p>
+<p>所输入的两个整数用逗号分隔</p>
+<p>【输出形式】</p>
+<p>输出4行数据，自上而下每行分别为两个数的和、差、积、商的结果</p>
+<p>【样例输入】</p>
+<p>3,-5</p>
+<p>【样例输出】</p>
+<p>a+b=-2</p>
+<p>a-b=8</p>
+<p>a*b=-15</p>
+<p>a/b=0</p>
+<p>【样例说明】无<br>【评分标准】</p>
+<h1 id="7-寻找完数"><a href="#7-寻找完数" class="headerlink" title="7. 寻找完数"></a>7. 寻找完数</h1><p>【问题描述】</p>
+<p>完数是指一个整数恰好等于它的因子之和（除自身外），则称这个数为完数。从键盘先后输入两个不大于9999的正整数m和n，若m&gt;n，则交换两数。然后求m~n（m和n均为正整数且m≤n）之间的所有完数。</p>
+<p>【输入形式】</p>
+<p>先后输入两个正整数m和n，用逗号分隔</p>
+<p>【输出形式】</p>
+<p>输出所有完数，每两个数之间用逗号分隔。若输入非法，则输出“error”</p>
+<p>【样例输入】</p>
+<p>1,2000</p>
+<p>【样例输出】</p>
+<p>6,28,496</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<p>正确性</p>
+<h1 id="8-C编程环境"><a href="#8-C编程环境" class="headerlink" title="8. C编程环境"></a>8. C编程环境</h1><p>【问题描述】</p>
+<p>编写C程序，输出“Hello World”。编辑完成后存盘、编译、连接、运行并查看结果。</p>
+<p>【输入形式】<br>【输出形式】<br>【样例输入】</p>
+<p>无</p>
+<p>【样例输出】</p>
+<p>Hello World!</p>
+<p>【样例说明】</p>
+<p>必须输出“Hello World!”</p>
+<p>【评分标准】</p>
+<h1 id="9-猴子吃桃问题"><a href="#9-猴子吃桃问题" class="headerlink" title="9. 猴子吃桃问题"></a>9. 猴子吃桃问题</h1><p>【问题描述】</p>
+<p>猴子第一天摘下若干个桃子，当即就吃了一半，还不过瘾，又多吃了一个。第二天早上又将剩下的桃子吃掉一半，又多吃一个。以后每天早上都吃了前一天剩下的一半多一个。到第10天早上想再吃时，发现只剩下一个桃子了。求第一天共摘多少个桃子？</p>
+<p>【输入形式】</p>
+<p>无</p>
+<p>【输出形式】</p>
+<p>输出一个整数，表示第一天所摘桃子的数量</p>
+<p>【评分标准】</p>
+<p>正确性</p>
+<h1 id="10-计算两个整数的加法"><a href="#10-计算两个整数的加法" class="headerlink" title="10. 计算两个整数的加法"></a>10. 计算两个整数的加法</h1><p>【问题描述】从键盘输入两个整数，然后求和并输出。<br>【输入形式】输入两个整数，以空格相隔<br>【输出形式】两个整数的和值<br>【样例输入】1 -10<br>【样例输出】-9<br>【样例说明】无<br>【评分标准】正确性</p>
+<h1 id="11-计算乘方和"><a href="#11-计算乘方和" class="headerlink" title="11. 计算乘方和"></a>11. 计算乘方和</h1><p>【问题描述】</p>
+<p>从键盘为整型变量a赋值，如果a的值为闭区间[3,10]之间的整数，则计算并输出a4+(a+3)4+(a+6)4+(a+9)4+(a+12)4+(a+15)4的值；否则输出“error”。</p>
+<p>【输入形式】</p>
+<p>按题意</p>
+<p>【输出形式】</p>
+<p>按题意</p>
+<p>【样例输入】</p>
+<p>3</p>
+<p>【样例输出】</p>
+<p>184275</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<p>正确性</p>
+<h1 id="12-电费计算器"><a href="#12-电费计算器" class="headerlink" title="12. 电费计算器"></a>12. 电费计算器</h1><p>【问题描述】</p>
+<p>一个电表按照如下的比率计费：</p>
+<p>前200度电：每度0.8元；</p>
+<p>后100度电：每度0.9元；</p>
+<p>超过300度电：每度1元。</p>
+<p>所有用户都是按最少100元进行收费。如果总费用大于400元，还要加收总数的15%的费用。请编写程序，从键盘输入用电量，经过计算后输出显示应收电费。</p>
+<p>【输入形式】</p>
+<p>一个整数，为用电量</p>
+<p>【输出形式】</p>
+<p>一个浮点数（保留小数点后两位），为应收电费</p>
+<p>【样例输入】</p>
+<p>100</p>
+<p>【样例输出】</p>
+<p>100.00</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<p>正确性</p>
+<h1 id="13-数字转换单词"><a href="#13-数字转换单词" class="headerlink" title="13. 数字转换单词"></a>13. 数字转换单词</h1><p>【问题描述】</p>
+<p>编写一个程序，要求用户输入一个两位数，然后输出显示该数的英文单词。提示：把数分解为两个数字。用一个switch语句显示第一位数字对应的单词（“twenty”、“thirty”等），用第二个switch语句显示第二位数字对应的单词。不要忘记11~19需要特殊处理。</p>
+<p>【输入形式】</p>
+<p>一个十进制两位整数</p>
+<p>【输出形式】</p>
+<p>输入的整数所对应的英文单词（所含字母均小写）</p>
+<p>【样例输入】</p>
+<p>85</p>
+<p>【样例输出】</p>
+<p>eighty-five</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<p>正确性</p>
+<h1 id="14-字符串删除"><a href="#14-字符串删除" class="headerlink" title="14. 字符串删除"></a>14. 字符串删除</h1><p>【问题描述】</p>
+<p>编写程序将一行英文中指定的字符串删除后输出。注意：查找指定字符串时，大小写无关，而且有可能多次出现。</p>
+<p>【输入形式】</p>
+<p>先从标准输入中输入一指定字符串（其长度不超过20，该字符串中不会出现空格），然后在下一行输入一行英文（长度不超过200），行末有回车换行。</p>
+<p>【输出形式】</p>
+<p>将输入的英文删除指定字符串后输出到标准输出上，末尾应有一个回车换行；若删除后英文为空，则只输出一个回车换行。</p>
+<p>【样例1输入】</p>
+<p>th<br>This second edition of “The C Programming Language” describes C as defined by the ANSI standard. Modern compilers already support most features of the standard.</p>
+<p>【样例1输出】</p>
+<p>is second edition of “e C Programming Language” describes C as defined by e ANSI standard. Modern compilers already support most features of e standard.</p>
+<p>【样例2输入】</p>
+<p>This<br>THIS</p>
+<p>【样例2输出】</p>
+<p>【样例说明】</p>
+<p>样例1中输入的指定字符串为th，由于是大小写无关查找删除，所以下一行英文信息中有四个子串要删除：Th、Th、th和th，删除后其它信息原样输出。<br>样例2中输入的指定字符串为This，输入的英文信息为THIS，大小写无关查找删除后英文信息为空，所以只输出了一个回车换行。</p>
+<p>【评分标准】该题要求编程实现指定字符串的大小写无关查找删除，提交程序文件名为exam2.c或exam2.cpp。</p>
+<h1 id="15-单词索引编排"><a href="#15-单词索引编排" class="headerlink" title="15. 单词索引编排"></a>15. 单词索引编排</h1><p>【问题描述】</p>
+<p>打开一英文文章（保存在一个现有文件in.txt中），为该文件生成词汇表（存到另一个文件out.txt中），要求词汇表中的单词以字典序由小到大存放（只由连续字母组成，且全为小写字母，不重复）。<br>假设：<br>1、该文章有可能没有经过排版，格式有可能杂乱无章，也有可能没有写完整。<br>2、文章中的单词个数不超过1000个，每个单词的长度不超过50个字母。</p>
+<p>【输入形式】</p>
+<p>保存英文文章的文件in.txt位于当前目录下。</p>
+<p>【输出形式】</p>
+<p>将生成的词汇表以字典序由小到大输出到当前目录下的文件out.txt中，每个单词单独占一行。</p>
+<p>【样例输入1】</p>
+<p>假设文件in.txt内容为：</p>
+<p>There are two versions of the international standards for C.<br>The first version was ratified in 1989 by the American National<br>Standards Institue (ANSI) C standard committee.It is often<br>referred as ANSI C or C89. The secand C standard was completed<br>in 1999. This standard is commonly referred to as C99. C99 is a<br>milestone in C’s evolution into a viable programming language<br>for numerical and scientific computing.</p>
+<p>【样例输出1】<br>文件out.txt中的词汇表应为：</p>
+<p>a<br>american<br>and<br>ansi<br>are<br>as<br>by<br>c<br>committee<br>commonly<br>completed<br>computing<br>evolution<br>first<br>for<br>in<br>institue<br>international<br>into<br>is<br>it<br>language<br>milestone<br>national<br>numerical<br>of<br>often<br>or<br>programming<br>ratified<br>referred<br>s<br>scientific<br>secand<br>standard<br>standards<br>the<br>there<br>this<br>to<br>two<br>version<br>versions<br>viable<br>was</p>
+<p>【样例输入2】</p>
+<p>假设文件in.txt内容为：</p>
+<p>There are two versions of the international standards for</p>
+<p>【样例输出2】<br>文件out.txt中的词汇表应为：</p>
+<p>are<br>for<br>international<br>of<br>standards<br>the<br>there<br>two<br>versions</p>
+<p>【样例说明】</p>
+<p>将in.txt中出现的所有由字母组成的单词（出现的单个字母也作为单词）全部转换成小写后，按照字典序输出到文件out.txt中（每个单词独占一行，重复出现的只输出一次）。<br>注意：样例2中in.txt文件内容还不完整，单词for后没有任何字符。</p>
+<p>【评分标准】本题要求为指定的文件编写单词索引，提交程序文件名为words.c或words.cpp。</p>
+<h1 id="16-单词索引编排（非文件）"><a href="#16-单词索引编排（非文件）" class="headerlink" title="16. 单词索引编排（非文件）"></a>16. 单词索引编排（非文件）</h1><p>【问题描述】</p>
+<p>输入一篇英文文章，为该文章生成词汇表并输出，要求词汇表中的单词以字典序由小到大存放（只由连续字母组成，且全为小写字母，不重复）。<br>假设：<br>1、该文章有可能没有经过排版，格式有可能杂乱无章，也有可能没有写完整。<br>2、文章中的单词个数不超过1000个，每个单词的长度不超过50个字母。</p>
+<p>【输入形式】</p>
+<p>从标准输入中读取一篇英文文章，该文章可能包含多行。文章输入结束时，在新的一行输入<ctrl>+z打回车表示输入结束。</p>
+<p>【输出形式】</p>
+<p>将生成的词汇表以字典序由小到大输出到屏幕上，每个单词单独占一行。</p>
+<p>【样例输入1】</p>
+<p>There are two versions of the international standards for C.<br>The first version was ratified in 1989 by the American National<br>Standards Institue (ANSI) C standard committee.It is often<br>referred as ANSI C or C89. The secand C standard was completed<br>in 1999. This standard is commonly referred to as C99. C99 is a<br>milestone in C’s evolution into a viable programming language<br>for numerical and scientific computing.</p>
+<p>【样例输出1】</p>
+<p>a<br>american<br>and<br>ansi<br>are<br>as<br>by<br>c<br>committee<br>commonly<br>completed<br>computing<br>evolution<br>first<br>for<br>in<br>institue<br>international<br>into<br>is<br>it<br>language<br>milestone<br>national<br>numerical<br>of<br>often<br>or<br>programming<br>ratified<br>referred<br>s<br>scientific<br>secand<br>standard<br>standards<br>the<br>there<br>this<br>to<br>two<br>version<br>versions<br>viable<br>was</p>
+<p>【样例输入2】</p>
+<p>There are two versions of the international standards for</p>
+<p>【样例输出2】</p>
+<p>are<br>for<br>international<br>of<br>standards<br>the<br>there<br>two<br>versions</p>
+<p>【样例说明】</p>
+<p>将文章中出现的所有由字母组成的单词（出现的单个字母也作为单词）全部转换成小写后，按照字典序输出到屏幕上（每个单词独占一行，重复出现的只输出一次）。<br>注意：样例2中文章内容还不完整，单词for后没有任何字符。</p>
+<p>【评分标准】本题要求为文章编写单词索引，提交程序文件名为words.c或words.cpp。</p>
+<h1 id="17-判断两数据集是否相同"><a href="#17-判断两数据集是否相同" class="headerlink" title="17. 判断两数据集是否相同"></a>17. 判断两数据集是否相同</h1><p>【问题描述】</p>
+<p>从标准输入中读入两个整数集，整数集中数据无序，且可能有重复数据。当两个数据集中数据完全相同（去掉重复数据，顺序不一定相同），则两个数据集相同。编写一程序判断输入的两数据集是否相同：用1表示相同，用0表示不同。</p>
+<p>【输入形式】</p>
+<p>先输入第一组整数集的个数（大于等于1，小于等于20），然后输入第一组整数（以一个空格分隔）；再输入第二组整数集的个数（大于等于1，小于等于20），并输入第二组整数（以一个空格分隔）。</p>
+<p>【输出形式】</p>
+<p>若两数据集相同，则输出1，否则输出0，然后在下一行按照从小到大的顺序输出第一个数据集中的数据（去掉重复数据，以一个空格分隔数据）。</p>
+<p>【样例输入1】</p>
+<p>10<br>100 56 7 89 -12 100 7 -1298 100 56<br>12<br>-12 7 7 56 100 -12 100 56 89 100 56 -1298</p>
+<p>【样例输出1】</p>
+<p>1<br>-1298 -12 7 56 89 100</p>
+<p>【样例输入2】</p>
+<p>10<br>56 70 -12 100 7 89 -12 100 56 1001<br>9<br>100 56 70 89 -12 100 7 12 100</p>
+<p>【样例输出2】</p>
+<p>0<br>-12 7 56 70 89 100 1001</p>
+<p>【样例说明】</p>
+<p>样例1中输入的两个数据集的数据去掉重复数据后完全相同（不考虑顺序），所以输出1，然后按从小到大的顺序输出第一个数据集中的数据。样例2中输入的两个数据集中的数据不相同，第一个数据集中的1001在第二个数据集中不存在，并且第二个数据集中的12在第一个数据集中也没有出现，所以先输出0，然后按从小到大的顺序输出第一个数据集中的数据。</p>
+<p>【评分标准】</p>
+<p>该题要求判断两数据集是否相同。上传C语言文件名为same.c。</p>
+<h1 id="18-模式字符串查找替换"><a href="#18-模式字符串查找替换" class="headerlink" title="18. 模式字符串查找替换"></a>18. 模式字符串查找替换</h1><p>【问题描述】</p>
+<p>输入一篇文章，从中查找给定的字符串，并将其替换为指定字符串后输出。要求：</p>
+<p>1）从键盘输入给定的待查找字符串，该字符串中只包含大小写字母、数字字符、中括号字符‘[’和‘]’。字符串的长度不超过20。<br>2）在给定待查找字符串中，中括号最多出现一次（也可以没有），中括号中至少包含一个以上的字母或数字。表示该位置上的字符只要与中括号内的任一字符相同，则匹配成功。<br>3）查找字符串时大小写无关。<br>4）查找到给定字符串后，将其替换为指定字符串（其中不含空格，不超过20个字符）输出，其它字符原样输出。</p>
+<p>【输入形式】</p>
+<p>首先从标准输入（键盘）读入待查找字符串和替换后的字符串，两字符串分行输入。<br>然后从新的一行开始输入一篇文章。</p>
+<p>【输出形式】</p>
+<p>将替换后的文章输出到标准输出（屏幕）。</p>
+<p>【样例输入1】</p>
+<p>zh[Ao]ng<br>wang<br>Zhang ying ju zhu zai ZhongGuo.<br>Ta zheng zai du gao zhong.<br>Bie ren dou jia ta xiao zhang.</p>
+<p>【样例输出1】</p>
+<p>wang ying ju zhu zai wangGuo.<br>Ta zheng zai du gao wang.<br>Bie ren dou jia ta xiao wang.</p>
+<p>【样例1说明】</p>
+<p>给定字符串中有中括号，表示第三个字符可以是A也可以是o，且大小写无关，因此文章中第一行的Zhang和Zhong与给定字符串匹配，故将该行中这两个字符串替换成wang后输出。其它类推。</p>
+<p>【样例输入2】</p>
+<p>a[anb]a<br>Yes<br>Do you like banana?<br>ABA is the abbreviation of American Bankers Association.</p>
+<p>【样例输出2】</p>
+<p>Do you like bYesna?<br>Yes is the abbreviation of American Bankers Association.</p>
+<p>【样例2说明】</p>
+<p>给定字符串中括号内有中括号，表示第一个和第三个字符都为a，第二个字符可以为a、n或b，因此文章中第一行的banana内有一个字符串ana与给定字符串匹配，将其替换为Yes后输出，然后再从ana后的字符n开始查找匹配。</p>
+<p>【评分标准】</p>
+<p>共有5个测试点。提交程序名为find.c或find.cpp。</p>
+<h1 id="19-折叠方阵"><a href="#19-折叠方阵" class="headerlink" title="19. 折叠方阵"></a>19. 折叠方阵</h1><p>【问题描述】</p>
+<p>给定一个起始数（大于等于1，小于等于20）和方阵的阶数（大于等于1，小于等于20），编程求得并输出该折叠方阵。一个起始数为10，4阶折叠方阵为：</p>
+<p>  10  11  14  19<br>  13  12  15  20<br>  18  17  16  21<br>  25  24  23  22</p>
+<p>【输入形式】</p>
+<p>从标准输入中输入两个正整数分别表示起始数和方阵的阶数，以一个空格分隔这两个数字。</p>
+<p>【输出形式】</p>
+<p>将生成的折叠方阵按行输出到标准输出上，每个数字占4个字符的宽度，靠右对齐，各数字之间不再有空格分隔，每行末尾有回车换行。</p>
+<p>【样例输入】</p>
+<p>3 5</p>
+<p>【样例输出】<br> <img src="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622555594000.png" alt=""><br>【样例说明】</p>
+<p>样例输入的起始数为3，方阵的阶数为5，按行输出生成的折叠方阵，每个数字占4个字符的宽度。</p>
+<p>提示：输出时为了使每个数字占4个字符宽度，c程序可以使用：printf(“%4d”,……)进行控制输出。</p>
+<p>【评分标准】该题要求输出折叠方阵，提交程序文件名为exam1.c或exam1.cpp。</p>
+<h1 id="20-模拟浮点数的格式控制输出"><a href="#20-模拟浮点数的格式控制输出" class="headerlink" title="20. 模拟浮点数的格式控制输出"></a>20. 模拟浮点数的格式控制输出</h1><p>【问题描述】</p>
+<p>编写程序，读入一无符号浮点数（也可以是整数）和格式控制字符串，按照格式控制要求输出该浮点数。要求：<br>1、格式控制字符串的形式为：%[-][width][.precision]f，其中必有字符%和f；字符“-”表示输出时左对齐，若没有该字符表示默认右对齐；width和precision为大于等于1的整数，分别表示输出所占字段宽度和精度，若无width或width小于数据的实际宽度时，输出以实际宽度为准；precision若小于实际小数位数，则对小数部分直接截断（不进行四舍五入），若省略，则默认小数点后保留10位，若实际位数不够，则补0。<br>2、上述格式控制字符串中只有字符“%”、“-”、“.”、“f”和数字字符，不会出现其它字符。<br>3、width和precision最大为50。<br>4、输入的浮点数最多不超过100个字符，若有小数点，则小数点前后都有数字。<br>5、输出时，为了表示左对齐或右对齐，当width大于输出数据的实际宽度时，用英文字符“#”填充空白处。<br>6、输出格式控制时，小数点本身占一个字符宽度。</p>
+<p>【输入形式】</p>
+<p>从标准输入分行输入浮点数和格式控制字符串。</p>
+<p>【输出形式】</p>
+<p>按照格式控制字符串的要求，输出浮点数，注意要用英文字符“#”填充空白处</p>
+<p>【样例1输入】</p>
+<p>56899038.288095460049505699495<br>%30.19f</p>
+<p>【样例1输出】</p>
+<h2 id="56899038-2880954600495056994"><a href="#56899038-2880954600495056994" class="headerlink" title="56899038.2880954600495056994"></a>56899038.2880954600495056994</h2><p>【样例2输入】</p>
+<p>0.45467920885612566661763656716236726743<br>%-20.5f</p>
+<p>【样例2输出】</p>
+<p>0.45467#############</p>
+<p>【样例3输入】</p>
+<p>586489909807989969<br>%5.3f</p>
+<p>【样例3输出】</p>
+<p>586489909807989969.000</p>
+<p>【样例说明】</p>
+<p>样例1中输入的浮点数有21位，只截取前19位，输出的浮点数共占28个字符宽度，并且是右对齐，所以前面添加了两个#字符。<br>样例2要求按照左对齐输出，所以字符#添加到数据后面。<br>样例3输入数据没有小数部分，输出时末尾添加0输出。</p>
+<p>提示：由于数据表示范围的限制，不能直接用C语言中的浮点格式输入输出进行处理。</p>
+<p>【评分标准】该题要求编程模拟实现浮点数的格式输出控制，提交程序文件名为print.c或print.cpp。</p>
+<h1 id="21-五子棋危险判断"><a href="#21-五子棋危险判断" class="headerlink" title="21. 五子棋危险判断"></a>21. 五子棋危险判断</h1><p>【问题描述】</p>
+<p>已知两人分别执白棋和黑棋在一个围棋棋盘上下五子棋，若同一颜色的棋子在同一条横行、纵行或斜线上连成5个棋子，则执该颜色棋子的人获胜。编写程序读入某一时刻下棋的状态，并判断是否有人即将获胜，即：同一颜色的棋子在同一条横行、纵列或斜线上连成4个棋子，且该4个棋子的两端至少有一端为空位置。<br>输入的棋盘大小是19×19，用数字0表示空位置（即没有棋子），用数字1表示该位置下了一白色棋子，用数字2表示该位置下了一黑色棋子。假设同一颜色的棋子在同一条横行、纵列或斜线上连成的棋子个数不会超过4个，并且最多有一人连成线的棋子个数为4。</p>
+<p>【输入形式】</p>
+<p>从控制台输入用来表示棋盘状态的数字0、1或2；每行输入19个数字，各数字之间以一个空格分隔，每行最后一个数字后没有空格；共输入19行表示棋盘状态的数字。</p>
+<p>【输出形式】</p>
+<p>若有人即将获胜，则先输出即将获胜人的棋子颜色（1表示白色棋子，2表示黑色棋子），然后输出英文冒号:，最后输出连成4个棋子连线的起始位置（棋盘横行自上往下、纵列自左往右从1开始计数，横行最小的棋子在棋盘上的横行数和纵列数作为连线的起始位置，若在同一行上，则纵列数最小的棋子位置作为起始位置，两数字之间以一个英文逗号,作为分隔符）。<br>若没有人获胜，则输出英文字符串：No。<br>无论输出什么结果，最后都要有回车换行符。</p>
+<p>【输入样例1】</p>
+<p>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 2 0 1 1 2 0 0 0 0 0 0 0<br>0 0 0 0 0 2 1 1 1 1 2 2 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 1 2 1 2 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 1 1 0 2 2 0 0 0 0 0 0 0 0<br>0 0 0 0 0 2 0 1 0 0 2 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 1 2 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</p>
+<p>【输出样例1】</p>
+<p>1:9,8</p>
+<p>【输入样例2】</p>
+<p>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 1 2 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 1 2 2 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</p>
+<p>【输出样例2】</p>
+<p>No</p>
+<p>【样例说明】</p>
+<p>在输入的样例1中，执白棋（数字1表示）的人即将获胜，连成4个棋子且有一端为空的起始位置在第9行第8列，所以输出1:9,8。<br>在输入的样例2中，还没有同一颜色的棋子连成4个，所以无人即将获胜，直接输出No。</p>
+<p>【评分标准】</p>
+<p>该题要求判断五子棋的棋盘状态，提交程序文件名为chess.c或chess.cpp。</p>
+<h1 id="22-Vigenere加密算法"><a href="#22-Vigenere加密算法" class="headerlink" title="22. Vigenere加密算法"></a>22. Vigenere加密算法</h1><p>【问题描述】<br>单一字母替换密码很容易通过字母频率分析而破解。而一种被称为Vigenere的密码克服了这一缺点，其方法是对于待加密信息中不同位置上的字母应用不同的字母加密对应关系。首先选择一个密钥，例如TIGER，然后，对于待加密信息中的第一个字符，采用如下的字母对应关系加密：<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>TUVWXYZABCDEFGHIJKLMNOPQRS<br>上述加密字母表是经过固定移位的字母表，其首字母是T（TIGER的首字母，先是T～Z，然后是A～S）。例如：字母A加密转换成T，字母Q转换成J，不在A～Z之间的字符，不进行转换。<br>对待加密信息中的第二个字符，采用如下的字母对应关系加密：<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>IJKLMNOPQRSTUVWXYZABCDEFGH<br>对于待加密信息的第3个、第4个、第5个字符，分别采用以G、E、R开头的移位字母表对其加密。因为密钥只有5个字母长，所以对于待加密信息中的第6个字符，将采用与第1个字符相同的对应关系加密，以此类推。<br>假定待加密信息中的字母全为大写字母，并且输入的密钥也全为大写字母；密钥长度不超过20，待加密信息不超过200个字符。</p>
+<p>【输入形式】</p>
+<p>从标准输入中输入密钥串，然后在下一行输入待加密信息（末尾有回车换行）。</p>
+<p>【输出形式】</p>
+<p>加密后结果输出到标准输出（末尾要有回车换行）。</p>
+<p>【样例输入】</p>
+<p>TIGER<br>C LANGUAGE IS WONDERFUL.</p>
+<p>【样例输出】</p>
+<p>V REEZCGKV QY NHVJIIYCR.</p>
+<p>【样例说明】</p>
+<p>按照上面的加密对应表对待加密信息进行加密即可得到加密后的信息，其中只对大写英文字母进行加密对换，例如：第一个字符C在上述第一个转换表中对应的字母为V，第二个字符为空格，应到第二个转换表中查找，因为不存在所以原样输出，依次类推。</p>
+<p>【评分标准】</p>
+<p>该题要求对待加密信息进行加密输出。提交程序名为exam2.c或exam2.cpp。</p>
+<h1 id="23-小数分数转换"><a href="#23-小数分数转换" class="headerlink" title="23. 小数分数转换"></a>23. 小数分数转换</h1><p>【问题描述】</p>
+<p>从标准输入中输入一个小数，编写程序将其转换成相应的分数显示，即转换为几又几分之几。<br>要求：<br>1、输入的小数包括整数部分、小数点和小数部分；整数部分和小数部分分别最多有7位数字；整数部分可以为0，若整数部分为非零整数时，则其最高位不为0；小数部分的末尾数字不为零。<br>2、输出的分数应为最简分数，由三部分数字组成：第一部分数字代表整数部分（若分数小于1，则为0，否则输出相应分数的整数部分，且最高位不为0），第二部分数字代表分子，第三部分数字代表分母，分子比分母小且不能再约分。</p>
+<p>【输入形式】</p>
+<p>从标准输入中输入一个小数后打回车。</p>
+<p>【输出形式】</p>
+<p>将转换后相应分数的三个部分数值输出到标准输出，并且分别以一个空格分隔，最后一个数值后没有空格，有回车换行。</p>
+<p>【样例1输入】</p>
+<p>0.35</p>
+<p>【样例1输出】</p>
+<p>0 7 20</p>
+<p>【样例2输入】</p>
+<p>1050.0144</p>
+<p>【样例2输出】</p>
+<p>1050 9 625</p>
+<p>【样例说明】</p>
+<p>样例1中输入的小数为0.35，相应分数整数部分为0，小数部分转换为分数为35/100，约分成最简分数为7/20。<br>样例2中输入的小数为1050.0144，相应分数整数部分为1050，小数部分转换为分数为144/10000，约分成最简分数为9/625。</p>
+<p>【评分标准】该题要求编程实现小数到分数的转换，提交程序文件名为exam1.c或exam2.cpp。</p>
+<h1 id="24-字符串替换"><a href="#24-字符串替换" class="headerlink" title="24. 字符串替换"></a>24. 字符串替换</h1><p>【问题描述】</p>
+<p>编写程序将一行英文中指定的字符串替换为另一字符串后输出。注意：查找指定字符串时，大小写无关，而且有可能多次出现。</p>
+<p>【输入形式】</p>
+<p>先从标准输入中分行输入两个英文字符串（每个字符串不为空，长度不超过20，且字符串中不会出现空格），分别表示被替换的字符串和替换成的字符串，然后在下一行输入一行英文（长度不超过200），行末有回车换行。</p>
+<p>【输出形式】</p>
+<p>将输入的英文按指定字符串替换后输出到标准输出上，末尾应有一个回车换行。</p>
+<p>【样例输入】</p>
+<p>th<br>Hello<br>This second edition of “The C Programming Language” describes C as defined by the ANSI standard. Modern compilers already support most features of the standard.</p>
+<p>【样例输出】</p>
+<p>Hellois second edition of “Helloe C Programming Language” describes C as defined by Helloe ANSI standard. Modern compilers already support most features of Helloe standard.</p>
+<p>【样例说明】</p>
+<p>样例中输入的被替换的字符串为th，由于是大小写无关查找替换，所以下一行英文信息中有四个子串要替换：Th、Th、th和th，分别替换为Hello，其它信息原样输出。</p>
+<p>【评分标准】该题要求编程实现指定字符串的大小写无关查找替换，提交程序文件名为exam2.c或exam2.cpp。</p>
+<h1 id="25-偶数之和"><a href="#25-偶数之和" class="headerlink" title="25. 偶数之和"></a>25. 偶数之和</h1><p>【问题描述】</p>
+<p>输入8个整数，求其中所有偶数的和。</p>
+<p>【输入形式】</p>
+<p>输入8个整数，每两个整数之间均以空格分隔</p>
+<p>【输出形式】</p>
+<p>输出1个整数</p>
+<p>【样例输入】</p>
+<p>1 -2 2 3 5 8 10 4</p>
+<p>【样例输出】</p>
+<p>22</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<p>正确性</p>
+<h1 id="26-区间合并"><a href="#26-区间合并" class="headerlink" title="26. 区间合并"></a>26. 区间合并</h1><p>【问题描述】</p>
+<p>从标准输入读入n（大于等于2，小于等于100）个闭区间[ai,bi]（ai小于bi，且ai,bi均为int范围内的整数），编写程序将这些区间合并为不相交的闭区间。例如：区间[1,2]、[2,5]、[3,8]、[9,12]可以合并为区间[1,8]和[9,12]。将合并后的闭区间按照升序排列输出。</p>
+<p>【输入形式】</p>
+<p>先从标准输入读入区间个数n，然后从下一行开始分行读入各个闭区间，每个闭区间包含由一个空格分隔的整数ai和bi。</p>
+<p>【输出形式】</p>
+<p>按照升序分行输出合并后的闭区间[xi,yi]，xi和yi之间以一个空格分隔。</p>
+<p>【样例输入】</p>
+<p>7<br>-5 6<br>1 3<br>4 8<br>10 100<br>-10 5<br>-2 6<br>-50 -30</p>
+<p>【样例输出】</p>
+<p>-50 -30<br>-10 8<br>10 100</p>
+<p>【样例说明】</p>
+<p>样例中输入了七个闭区间，其中[-5,6]、[1,3]、[4,8]、[-10,5]和[-2,6]可以合并为[-10,8]，合并后的闭区间按照升序输出。</p>
+<p>【评分标准】该题要求编程实现区间的合并，提交程序文件名为interval.c或interval.cpp。</p>
+<h1 id="27-倍逆序式数"><a href="#27-倍逆序式数" class="headerlink" title="27. 倍逆序式数"></a>27. 倍逆序式数</h1><p>【问题描述】</p>
+<p>对于一个整数n与其逆序数m（将整数倒过来形成的数，如123的逆序数为321），若m恰为n的整数k倍，称n*k=m为倍逆序式数。输入一个整数判断其是否存在倍逆序式。若存在则输出该逆序式；若不存在，则直接输出n和m。</p>
+<p>【输入形式】</p>
+<p>从标准输入中读取一大于0的十进制整数n，要求：n不会超过int数据类型的表示范围，并且最高位不为0。</p>
+<p>【输出形式】</p>
+<p>若存在倍逆序式数，则按照下面的格式输出：<br>n<em>k=m<br>其中n为输入的整数，m为其逆序数，k是m为n的倍数，</em>和=都是英文符号，该输出公式中不得有空格等其它任何字符。若不存在倍逆序式数，则直接输出n和m，中间以一个空格分隔两个数据。<br>注意：无论是否存在倍逆序式数，输出m时，m的位数应该与n相同，若m的最高位为0，也应该输出0。</p>
+<p>【样例1输入】</p>
+<p>1089</p>
+<p>【样例1输出】</p>
+<p>1089*9=9801</p>
+<p>【样例2输入】</p>
+<p>23200</p>
+<p>【样例2输出】</p>
+<p>23200 00232</p>
+<p>【样例3输入】</p>
+<p>1111</p>
+<p>【样例3输出】</p>
+<p>1111*1=1111</p>
+<p>【样例说明】</p>
+<p>样例1中输入的n为1089，其逆序数为9801，9801是1089的9倍，所以存在倍逆序式数，输出：1089<em>9=9801；<br>样例2中输入的n为23200，其逆序数为00232（实际值为232），逆序数不是原数的倍数，所以不存在倍逆序式数，直接输出：23200 00232；<br>样例3中输入的n为1111，其逆序数仍为1111，逆序数与原数相同（1倍），所以存在倍逆序式数，输出：1111</em>1=1111。</p>
+<p>【评分标准】该程序要求判断是否存在倍逆序式数，提交程序文件名为exam1.c或exam1.cpp。</p>
+<h1 id="28-整数出现次数统计"><a href="#28-整数出现次数统计" class="headerlink" title="28. 整数出现次数统计"></a>28. 整数出现次数统计</h1><p>【问题描述】</p>
+<p>输入一组无序的整数，编写程序按照整数出现次数由多到少输出整数及其出现次数，若出现次数相同，则按照输入顺序输出。</p>
+<p>【输入形式】</p>
+<p>先从标准输入读入整数的个数（大于等于1，小于等于100），然后在下一行输入这些整数，各整数之间以一个空格分隔。</p>
+<p>【输出形式】</p>
+<p>在标准输出上按照整数出现次数由多到少输出整数及其出现次数，每行显示一个整数及其出现次数，两者以一个空格分隔，出现次数后跟一个回车；若出现次数相同，则按照输入顺序输出。</p>
+<p>【样例输入】</p>
+<p>10</p>
+<p>0 -50 0 632 5813 -50 9 -50 0 632</p>
+<p>【样例输出】</p>
+<p>0 3</p>
+<p>-50 3</p>
+<p>632 2</p>
+<p>5813 1</p>
+<p>9 1</p>
+<p>【样例说明】</p>
+<p>输入了10个整数，其中0和-50出现3次，0先输入，所以先输出0及其出现次数，再输出-50及其出现次数；632出现了2次；5813和9只出现1次，5813先出现先输出。</p>
+<p>【评分标准】</p>
+<p>该程序要求输出整数及其出现次数，提交程序文件名为exam1.c或exam1.cpp。</p>
+<h1 id="29-if双分支结构简单应用"><a href="#29-if双分支结构简单应用" class="headerlink" title="29. if双分支结构简单应用"></a>29. if双分支结构简单应用</h1><p>【问题描述】</p>
+<p>输入一个整数，如果输入的数是偶数或者负数，则输出其平方，否则输出其一半的值。</p>
+<p>【输入形式】</p>
+<p>整型数据</p>
+<p>【输出形式】</p>
+<p>整型数据</p>
+<p>【样例输入】</p>
+<p>7</p>
+<p>【样例输出】</p>
+<p>3</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<p>正确性</p>
+<h1 id="30-文件加密（环）"><a href="#30-文件加密（环）" class="headerlink" title="30. 文件加密（环）"></a>30. 文件加密（环）</h1><p>【问题描述】</p>
+<p>有一种文件加密方法，其方法如下：</p>
+<p>1、明码只由小写字母组成，明码长度不超过26个字符；</p>
+<p>2、先将明码中的重复字母去掉，即：只保留最先出现的字母，其后出现的相同字母都去掉；</p>
+<p>3、将不含重复字母的明码和其它不在明码中的小写字母（按字母升序）连成一个由26个小写字母组成的环，明码在前，明码的头字母为环的起始位置；</p>
+<p>4、设原明码的第一个字母（即环的起始位置）作为环的开始位置标识，先从环中删除第一个字母（位置标识则移至下一个字母），再沿着环从下一个字母开始顺时针以第一个字母的ASCII码值移动该位置标识至某个字母，则该字母成为第一个字母的密文字符；然后从环中删除该字母，再从下一个字母开始顺时针以该字母的ASCII码值移动位置标识至某个字母，找到该字母的密文字符；依次按照同样方法找到其它字母的密文字符。当环中只剩一个字母时，则该剩下的最后一个字母的密文为原明码的第一个字母。</p>
+<p>例如：如果明码为：helloworld，将明码中重复字母去掉后为：helowrd，将不在明码中的小写字母按照升序添加在明码后，即形成字符串：helowrdabcfgijkmnpqstuvxyz，该字符串形成的环如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556227000.png" alt=""></p>
+<p>明码的第一个字母为h，h也是环的起始位置。h的ASCII码制为104，先把h从环中删除，再从下一个字母e开始顺时针沿着环按其ASCII值移动位置标识（即移动位置标识104次）至字母w，则h的密文字符为w。w的ASCII码制为119，然后将w从环中删除，再从下一个字母r开始顺时针沿着环移动位置标识119次至字母为l，则w的密文字符为l。依次按照同样方法找到其它字母的密文字符。环中剩下的最后一个字母为x，则x的密文字符为明码的第一个字母h。按照这种方法形成的密文转换字符表为：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556279000.png" alt=""></p>
+<p>上方为原文字符，下方为对应的密文字符。</p>
+<p>编写程序实现上述文件加密方法。明码和待加密的文件都从标准输入读取，加密后的生成的文件输出到标准输出上。加密时将小写字母按照上述加密方法进行密文转换，其它字符保持不变。</p>
+<p>【输入形式】</p>
+<p>明码和待加密的文件都从标准输入读取：第一行输入的是明码，然后从第二行开始输入的是待加密的文件。</p>
+<p>【输出形式】</p>
+<p>加密后的文件内容输出到标准输出。</p>
+<p>【样例输入】</p>
+<p>helloworld</p>
+<p>welcome to </p>
+<p>Bei Hang University!</p>
+<p>【样例输出】</p>
+<p>ldskmfd vm </p>
+<p>Bdx Hqio Uixjdayxvp!</p>
+<p>【样例说明】</p>
+<p>输入的明码为helloworld，按照上述的密码转换表将第二行开始的文件内容转换为对应字符输出，其它字符如空格符、回车换行符、大写字母B、H和U等字符原样输出。</p>
+<p>【评分标准】</p>
+<p>该题要求对指定的文件进行加密，提交的文件名为：encode.c或encode.cpp</p>
+<h1 id="31-n的阶乘"><a href="#31-n的阶乘" class="headerlink" title="31. n的阶乘"></a>31. n的阶乘</h1><p>【问题描述】</p>
+<p>输入一个正整数n（大于等于1，小于100），编程计算并输出n的阶乘。</p>
+<p>【输入形式】</p>
+<p>从标准输入读入一个正整数n（大于等于1，小于100）。</p>
+<p>【输出形式】</p>
+<p>在标准输出上输出计算出的n的阶乘。</p>
+<p>【样例输入】</p>
+<p>30</p>
+<p>【样例输出】</p>
+<p>265252859812191058636308480000000</p>
+<p>【样例说明】</p>
+<p>输入正整数n为30，30的阶乘为265252859812191058636308480000000。</p>
+<p>【评分标准】该程序要求输出正整数的阶乘，提交程序文件名为exam2.c或exam2.cpp。</p>
+<h1 id="32-最长连续升序整数序列"><a href="#32-最长连续升序整数序列" class="headerlink" title="32. 最长连续升序整数序列"></a>32. 最长连续升序整数序列</h1><p>【问题描述】</p>
+<p>输入一组无序的整数（整数都大于等于0），编程求出其中最长的连续升序子序列（该序列中后一个整数比前一个整数多1，序列的长度是指序列中整数的个数，长度应大于等于2）。例如输入13个整数：3520 0 3 89 56 88 3521 9 90 1 99 2 87，其中连续升序子序列有3个：3520 3521，0 1 2 3和87 88 89 90，长度分别为2、4、4，所以后两个子序列都是最长的连续升序子序列。</p>
+<p>【输入形式】</p>
+<p>先从标准输入读入整数的个数（大于等于1，小于等于100），然后在下一行输入这些整数，各整数之间以一个空格分隔。</p>
+<p>【输出形式】</p>
+<p>先向标准输出输出最长连续升序子序列的长度，然后从下一行开始按升序分行输出最长连续升序子序列，各整数之间以一个空格分隔，每行最后一个整数后也要有一个空格。</p>
+<p>若没有连续升序子序列，直接输出数字0。</p>
+<p>【样例输入】</p>
+<p>13</p>
+<p>3520 0 3 89 56 88 3521 9 90 1 99 2 87</p>
+<p>【样例输出】</p>
+<p>4</p>
+<p>0 1 2 3 </p>
+<p>87 88 89 90 </p>
+<p>【样例说明】</p>
+<p>输入的整数个数为13，其中最长连续升序子序列的长度为4，有两个最长连续升序子序列，分别按升序分行输出。</p>
+<p>【评分标准】该程序要求输出最长连续升序子序列，提交程序文件名为exam1.c或exam1.cpp。</p>
+<h1 id="33-枚举量值"><a href="#33-枚举量值" class="headerlink" title="33. 枚举量值"></a>33. 枚举量值</h1><p>【问题描述】</p>
+<p>按照C语言语法，每个枚举量都有一个值，如果没有指定，则按隐含规则生成。从标准输入中读入一合法的枚举类型定义语句，识别计算并输出其中定义的每个枚举量的值。要求：<br>1、枚举类型定义语句中每个枚举量的名字长度不超过32；枚举量的个数不超过50个；<br>2、枚举类型定义语句中指定的数值是大于等于0的十进制整数。</p>
+<p>【输入形式】</p>
+<p>从标准输入读入一行符合C语言语法的枚举类型定义语句，末尾有回车换行。</p>
+<p>【输出形式】</p>
+<p>按照定义的先后顺序分行输出每个枚举量的名字和其值，两者之间以一个空格分隔。</p>
+<p>【样例1输入】</p>
+<p>enum BOOL{FALSE,TRUE};</p>
+<p>【样例1输出】</p>
+<p>FALSE 0<br>TRUE 1</p>
+<p>【样例2输入】</p>
+<p>enum { JAN=1  , FEB,   MAR    , APR ,MAY, JUN, JUL, AUG , SEP, OCT , NOV , DEC,MON=1,TUES,WED, THUR , FRI,SET,SUN,   FOUNDING   =   1949      };</p>
+<p>【样例2输出】</p>
+<p>JAN 1<br>FEB 2<br>MAR 3<br>APR 4<br>MAY 5<br>JUN 6<br>JUL 7<br>AUG 8<br>SEP 9<br>OCT 10<br>NOV 11<br>DEC 12<br>MON 1<br>TUES 2<br>WED 3<br>THUR 4<br>FRI 5<br>SET 6<br>SUN 7<br>FOUNDING 1949</p>
+<p>【样例说明】</p>
+<p>样例1中定义的枚举量有两个，分别为FALSE和TRUE，都没有指定值，所以采用默认值，分别为0和1；<br>样例2中定义的枚举量有20个，其中JAN指定值为1，其后的11个枚举量没有指定值，所以它们的值依次增1；MON指定值为1，其后的6个枚举量的值也依次增1；最后一个枚举量的值指定为1949。</p>
+<p>【评分标准】该程序要求识别并输出定义的枚举量的值，提交程序文件名为exam2.c或exam2.cpp。</p>
+<h1 id="34-计算器（表达式计算-表达式树实现）"><a href="#34-计算器（表达式计算-表达式树实现）" class="headerlink" title="34. 计算器（表达式计算-表达式树实现）"></a>34. 计算器（表达式计算-表达式树实现）</h1><p>【问题描述】</p>
+<p>从标准输入中读入一个整数算术运算表达式，如24 / ( 1 + 2 + 36 / 6 / 2 - 2) * ( 12 / 2 / 2 )= ，计算表达式结果，并输出。</p>
+<p>要求：<br>1、表达式运算符只有+、-、*、/，表达式末尾的=字符表示表达式输入结束，表达式中可能会出现空格；<br>2、表达式中会出现圆括号，括号可能嵌套，不会出现错误的表达式；<br>3、出现除号/时，以整数相除进行运算，结果仍为整数，例如：5/3结果应为1。</p>
+<p>4、要求采用表达式树来实现表达式计算。</p>
+<p>表达式树（expression tree）：</p>
+<p>我们已经知道了在计算机中用后缀表达式和栈来计算中缀表达式的值。在计算机中还有一种方式是利用表达式树来计算表达式的值。表达式树是这样一种树，其根节点为操作符，非根节点为操作数，对其进行中序遍历将计算表达式的值。由后缀表达式生成表达式树的方法如下：</p>
+<p>l  读入一个符号：</p>
+<p>l  如果是操作数，则建立一个单节点树并将指向他的指针推入栈中；</p>
+<p>l  如果是运算符，就从栈中弹出指向两棵树T1和T2的指针（T1先弹出）并形成一棵新树，树根为该运算符，它的左、右子树分别指向T2和T1，然后将新树的指针压入栈中。</p>
+<p>例如输入的后缀表达式为：</p>
+<pre><code>ab+cde+**
+</code></pre><p>则生成的表达式树为：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556643000.png" alt=""></p>
+<p>【输入形式】</p>
+<p>从键盘输入一个以=结尾的整数算术运算表达式。操作符和操作数之间可以有空格分隔。</p>
+<p>【输出形式】</p>
+<p>首先在屏幕上输出表达式树根、左子节点及右子节点上的运算符或操作数，中间由一个空格分隔，最后有一个回车（如果无某节点，则该项不输出）。然后输出表达式计算结果。<br>【样例输入】</p>
+<p>24 / ( 1 + 2 + 36 / 6 / 2 - 2) * ( 12 / 2 / 2 )     =</p>
+<p>【样例输出】</p>
+<ul>
+<li>/ /</li>
+</ul>
+<p>18</p>
+<p>【样例说明】</p>
+<p>按照运算符及括号优先级依次计算表达式的值。在生成的表达树中，*是根节点的运算符，/ 是根节点的左子节点上运算符，/是根节点的右子节点上运算符，按题目要求要输出。</p>
+<p>【评分标准】</p>
+<p>该题要求按照表达式树计算表达式的值，提交文件名为exam2.c或exam2.cpp。</p>
+<h1 id="35-寻找回文数"><a href="#35-寻找回文数" class="headerlink" title="35. 寻找回文数"></a>35. 寻找回文数</h1><p>【问题描述】</p>
+<p>所谓回文数就是将一个数从左向右读与从右向左读是一样的，例如，121和1331都是回文数。编写一个函数实现求正整数n以内的回文数。</p>
+<p>【源文件名】</p>
+<p>ex403.c</p>
+<p>【输入形式】</p>
+<p>输入一个正整数，为n的值</p>
+<p>【输出形式】</p>
+<p>每行输出10个回文数，每两个回文数之间用逗号分隔</p>
+<p>【样例输入】</p>
+<p>150</p>
+<p>【样例输出】</p>
+<p>0,1,2,3,4,5,6,7,8,9,</p>
+<p>11,22,33,44,55,66,77,88,99,101,</p>
+<p>111,121,131,141,</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<h1 id="36-寻找双质数"><a href="#36-寻找双质数" class="headerlink" title="36. 寻找双质数"></a>36. 寻找双质数</h1><p>【问题描述】</p>
+<p>所谓“双质数”是指对于两个质数p和q，如果满足p = q + 2，则p和q为双质数。请编程实现利用函数求解闭区间[m, n]之间的双质数，其中m和n均为正整数且m &lt; n。</p>
+<p>【源文件名】</p>
+<p>ex402.c</p>
+<p>【输入形式】</p>
+<p>从键盘先后输入两个正整数（分别为m和n），用逗号分隔</p>
+<p>【输出形式】</p>
+<p>每行输出一对双质数，用逗号分隔。若有多对双质数，则分多行输出</p>
+<p>【样例输入】</p>
+<p>3,100</p>
+<p>【样例输出】</p>
+<p>3,5</p>
+<p>5,7</p>
+<p>11,13</p>
+<p>17,19</p>
+<p>29,31</p>
+<p>41,43</p>
+<p>59,61</p>
+<p>71,73</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<h1 id="37-数列前n项和"><a href="#37-数列前n项和" class="headerlink" title="37. 数列前n项和"></a>37. 数列前n项和</h1><p>【问题描述】<br>写一个函数，求解以下数列前n项之和并输出，其中n（正整数）应从键盘输入。<br><img src="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556752000.png" alt=""></p>
+<p>【源文件名】</p>
+<p>ex401.c</p>
+<p>【输入形式】</p>
+<p>输入一个正整数（int型），表示数列的项数</p>
+<p>【输出形式】</p>
+<p>输出一个实数（float型），保留小数点后两位</p>
+<p>【样例输入】</p>
+<p>3</p>
+<p>【样例输出】</p>
+<p>5.17</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<h1 id="38-水仙花数"><a href="#38-水仙花数" class="headerlink" title="38. 水仙花数"></a>38. 水仙花数</h1><p>【问题描述】</p>
+<p>打印出所有“水仙花数”，所谓“水仙花数”是指一个三位数，其各位数字立方和等于该数本身。例如：153是一个水仙花数，因为153=13+53+33。</p>
+<p>【输入形式】</p>
+<p>无</p>
+<p>【输出形式】</p>
+<p>每行输出一个水仙花数，有多少个水仙花数，就输出多少行</p>
+<p>【评分标准】</p>
+<p>正确性</p>
+<h1 id="39-闰年问题"><a href="#39-闰年问题" class="headerlink" title="39. 闰年问题"></a>39. 闰年问题</h1><p>【问题描述】</p>
+<p>定义一个带参数的宏，以判别某个年份是否为闰年。其中年份year应从键盘输入。</p>
+<p>【源文件名】</p>
+<p>ex406.c</p>
+<p>【输入形式】</p>
+<p>输入一个整数，为年份</p>
+<p>【输出形式】</p>
+<p>输出所输入的年份是或不是闰年，请参见样例输出</p>
+<p>【样例输入】</p>
+<p>1990</p>
+<p>【样例输出】</p>
+<p>1990 is not a leap year</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【样例输入】</p>
+<p>2000</p>
+<p>【样例输出】</p>
+<p>2000 is a leap year</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<h1 id="40-求解勒让德多项式"><a href="#40-求解勒让德多项式" class="headerlink" title="40. 求解勒让德多项式"></a>40. 求解勒让德多项式</h1><p>【问题描述】</p>
+<p>使用递归方法求n阶勒让德多项式的值，递归公式为：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622556860000.png" alt=""><br>其中：n和x为int型；Pn(x)为float型。</p>
+<p>【源文件名】</p>
+<p>ex405.c</p>
+<p>【输入形式】</p>
+<p>先后从键盘输入n和x，用逗号分隔</p>
+<p>【输出形式】</p>
+<p>若n小于0，则输出“error”。若n大于等于0，则输出Pn(x)，保留小数点后两位</p>
+<p>【样例输入】</p>
+<p>-1,3</p>
+<p>【样例输出】</p>
+<p>error</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【样例输入】</p>
+<p>2,-3</p>
+<p>【样例输出】</p>
+<p>-3.50</p>
+<p>【样例说明】</p>
+<p>无</p>
+<h1 id="41-储蓄账户余额计算器"><a href="#41-储蓄账户余额计算器" class="headerlink" title="41. 储蓄账户余额计算器"></a>41. 储蓄账户余额计算器</h1><p>【问题描述】</p>
+<p>假设你每月在储蓄账户上存100元，年利率是5%，则每月的利率是0.05/12=0.00417。</p>
+<p>第一个月后，账户上的值变成100×(1+0.00417)=100.417；</p>
+<p>第二个月后，账户上的值变成(100+100.417)×(1+0.00417)=201.252；</p>
+<p>第三个月后，账户上的值变成(100+201.252)×(1+0.00417)=302.507；</p>
+<p>以此类推。</p>
+<p>写一个函数，根据用户输入的每月存款数、年利率和月份数，计算给定月份后账户上的钱数并输出。</p>
+<p>【源文件名】</p>
+<p>ex404.c</p>
+<p>【输入形式】</p>
+<p>输入每月存款数、年利率、月份数，每两个数据之间用逗号分隔</p>
+<p>【输出形式】</p>
+<p>月末账户本息余额（保留小数点后两位）</p>
+<p>【样例输入】</p>
+<p>100,0.05,3</p>
+<p>【样例输出】</p>
+<p>302.51</p>
+<p>【样例说明】</p>
+<p>无</p>
+<p>【评分标准】</p>
+<h1 id="42-消除游戏"><a href="#42-消除游戏" class="headerlink" title="42. 消除游戏"></a>42. 消除游戏</h1><p>【问题描述】</p>
+<p>消除类游戏是深受大众欢迎的一种游戏，游戏在一个包含有n行m列的游戏棋盘上进行，棋盘的每一行每一列的方格上放着一个有颜色的棋子，当一行或一列上有连续三个或更多的相同颜色的棋子时，这些棋子都被消除。当有多处可以被消除时，这些地方的棋子将同时被消除。</p>
+<p>现在给定一个n行m列的棋盘，棋盘中的每一个方格上有一个棋子（用数字1-9表示各种颜色的棋子），请给出经过消除后的棋盘。</p>
+<p>请注意：一个棋子可能在某一行和某一列同时被消除。</p>
+<p>【输入形式】</p>
+<p>从标准输入读取数据，第一行包含两个整数n和m，分别表示棋盘的行数和列数（行数和列数都大于等于3，小于等于9），以一个空格分隔这两个整数。</p>
+<p>接下来输入n行，每行m个整数，用一个空格分隔各个整数，这些整数分别表示每一个方格中棋子的颜色（大于等于1，小于等于9）。</p>
+<p>【输出形式】</p>
+<p>向标准输出上输出n行，每行m个整数，相邻整数之间以一个空格分隔，表示经过消除后的棋盘。如果一个方格中的棋子被消除，则对应的方格输出数字0，否则输出代表原棋子颜色的整数。每行最后一个整数后也要有一个空格。</p>
+<p>【样例1输入】</p>
+<p>4 5</p>
+<p>2 2 3 1 2</p>
+<p>3 4 5 1 4</p>
+<p>2 3 2 1 3</p>
+<p>2 2 2 4 4</p>
+<p>【样例1输出】</p>
+<p>2 2 3 0 2 </p>
+<p>3 4 5 0 4 </p>
+<p>2 3 2 0 3 </p>
+<p>0 0 0 4 4 </p>
+<p>【样例1说明】</p>
+<p>棋盘中第4列的1和第4行的2可以被消除，其它方格中的棋子均被保留。</p>
+<p>【样例2输入】</p>
+<p>4 5</p>
+<p>2 2 3 1 2</p>
+<p>3 1 1 1 1</p>
+<p>2 3 2 1 3</p>
+<p>2 2 3 3 3</p>
+<p>【样例2输出】</p>
+<p>2 2 3 0 2 </p>
+<p>3 0 0 0 0 </p>
+<p>2 3 2 0 3 </p>
+<p>2 2 0 0 0 </p>
+<p>【样例2说明】</p>
+<p>棋盘中第4列的1，第二行的1和第4行的3可以被消除，其它方格中的棋子均被保留。</p>
+<p>【评分标准】该程序要求输出消除后的棋盘状态，提交程序文件名为exam1.c或exam1.cpp。</p>
+<h1 id="43-整数出现次数"><a href="#43-整数出现次数" class="headerlink" title="43. 整数出现次数"></a>43. 整数出现次数</h1><p>【问题描述】</p>
+<p>输入一组无序的整数，编程输出其中出现次数最多的整数及其出现次数。</p>
+<p>【输入形式】</p>
+<p>先从标准输入读入整数的个数（大于等于1，小于等于100），然后在下一行输入这些整数，各整数之间以一个空格分隔。</p>
+<p>【输出形式】</p>
+<p>在标准输出上输出出现次数最多的整数及其出现次数，两者以一个空格分隔；若出现次数最多的整数有多个，则按照整数升序分行输出。</p>
+<p>【样例输入】</p>
+<p>10</p>
+<p>0 -50 0 632 5813 -50 9 -50 0 632</p>
+<p>【样例输出】</p>
+<p>-50 3</p>
+<p>0 3</p>
+<p>【样例说明】</p>
+<p>输入了10个整数，其中出现次数最多的是-50和0，都是出现3次。</p>
+<p>【评分标准】该程序要求输出出现次数最多的整数和出现次数，提交程序文件名为exam1.c或exam1.cpp。</p>
+<h1 id="44-Huffman文件解码"><a href="#44-Huffman文件解码" class="headerlink" title="44. Huffman文件解码"></a>44. Huffman文件解码</h1><p>【问题描述】</p>
+<p>给定一组字符的Huffman编码表（从标准输入读取），以及一个用该编码表进行编码的Huffman编码文件（从标准输入读取），编写程序实现对Huffman编码文件的解码，并按照前序遍历序列输出解码过程中Huffman树（规定树中左分支表示0，右分支表示1）中各结点的访问次数。</p>
+<p>例如给定的一组字符的Huffman编码表为：</p>
+<p>6</p>
+<p>1:111</p>
+<p>2:0</p>
+<p>+:110</p>
+<p>*:1010</p>
+<p>=:1011</p>
+<p>8:100</p>
+<p>第一行的6表示要对6个不同的字符进行编码，后面每行中冒号（:）左边的字符为待编码的字符，右边为其Huffman编码，冒号两边无空格。对于该编码表，对应的Huffman树（树中左分支表示0，右分支表示1）应为：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622557028000.jpg" alt=""></p>
+<p>假如Huffman编码文件的内容（由0和1字符组成的序列）为：</p>
+<p>111011001010011001011111100</p>
+<p>则遍历上述Huffman树即可对该文件进行解码，解码后的文件内容为：</p>
+<p>12+2*2+2=18</p>
+<p>解码过程中，经过Huffman树中各结点的遍历次数见下图中结点中的数字：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duskdusts/blog@master/img/1622557052000.jpg" alt=""></p>
+<p>对该Huffman树中各结点的访问次数按照前序遍历序列输出应为：</p>
+<p>11 4 7 3 1 2 1 1 4 2 2 </p>
+<p>【输入形式】</p>
+<p>先从标准输入读入待编码的字符个数（大于等于2，小于等于50），然后分行输入各字符的Huffman编码（先输入字符，再输入其编码，字符和编码中间以一个英文字符冒号:分隔），编码只由0和1组成。</p>
+<p>Huffman编码文件在最后一行输入，其中只有0和1字符，末尾有一个回车换行符。</p>
+<p>【输出形式】</p>
+<p>先将解码后的文件内容输出到标准输出上（独占一行）；然后以前序遍历序列输出解码过程中Huffman树中各结点的访问次数，各数据间以一个空格分隔，最后一个数据后也有一个空格。</p>
+<p>【样例输入】</p>
+<p>6</p>
+<p>1:111</p>
+<p>2:0</p>
+<p>+:110</p>
+<p>*:1010</p>
+<p>=:1011</p>
+<p>8:100</p>
+<p>111011001010011001011111100</p>
+<p>【样例输出】</p>
+<p>12+2*2+2=18</p>
+<p>11 4 7 3 1 2 1 1 4 2 2 </p>
+<p>【样例说明】</p>
+<p>从标准输入读取了6个字符的Huffman编码，因为规定Huffman树中左分支表示0，右分支表示1，所以利用该编码表可构造上述Huffman树（见图1）。遍历该Huffman树对最后一行输入的编码文件进行解码，即可得到解码后的原文件内容，遍历过程中各树中结点的最终访问次数要按照前序遍历序列输出。</p>
+<p>【评分标准】</p>
+<p>该题要求根据字符的Huffman编码表对编码文件进行解码，提交的文件名为：exam2.c或exam2.cpp。</p>
+<h1 id="45-计算器（表达式计算）"><a href="#45-计算器（表达式计算）" class="headerlink" title="45. 计算器（表达式计算）"></a>45. 计算器（表达式计算）</h1><p>【问题描述】</p>
+<p>从标准输入中读入一个整数算术运算表达式，如24 / ( 1 + 2 + 36 / 6 / 2 - 2) * ( 12 / 2 / 2 )= ，计算表达式结果，并输出。</p>
+<p>要求：</p>
+<p>1、表达式运算符只有+、-、*、/，表达式末尾的=字符表示表达式输入结束，表达式中可能会出现空格；表达式中出现的字符都是英文字符；<br>2、表达式中会出现圆括号，括号可能嵌套，不会出现错误的表达式；</p>
+<p>3、出现除号/时，以整数相除进行运算，结果仍为整数，例如：5/3结果应为1。</p>
+<p>【输入形式】</p>
+<p>从键盘输入一个以=结尾的整数算术运算表达式。操作符和操作数之间可以有空格分隔。</p>
+<p>【输出形式】</p>
+<p>在屏幕上输出计算结果（为整数，即在计算过程中除法为整除）。</p>
+<p>【样例输入】</p>
+<p>24 / ( 1 + 2 + 36 / 6 / 2 - 2) * ( 12 / 2 / 2 )     =</p>
+<p>【样例输出】</p>
+<p>18<br>【样例说明】</p>
+<p>按照运算符及括号优先级依次计算表达式的值。</p>
+<p>【评分标准】</p>
+<p>该题要求计算表达式的值，提交程序名为exam2.c或exam2.cpp。</p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>编辑于 Jun 6, 2021</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+            
+                
+                <a href="/tags/code">#code</a>
+            
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/2018/07/10/hello-world/">
+                        <i class="fa fa-angle-left"></i>
+                        <span>Hello World</span>
+                    </a>
+                </div>
+            
+            
+        </div>
+    
+</div>
+<div id="valine"></div>
+
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2016 - 2021
+                </span>
+                <span class="footer-author">
+                    duskdust
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 15.2k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    Hosted by <a target="_blank" rel="noopener" href="https://pages.dev">CloudFlare Pages</a> & <a target="_blank" rel="noopener" href="https://vercel.com">Vercel</a>, 
+                    主题 <a target="_blank" rel="noopener" href="https://github.com/isecret/Hola">Hola</a> / <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a>.
+                </span>
+                <!-- <label id="theme-switch" class="theme-switch" for="checkbox_theme">
+                    <input type="checkbox" id="checkbox_theme">
+                </label> -->
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/instantclick.min.js"></script>
+        
+            <script src="/js/gitment.browser.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+    
+        <script>
+            var gitment = new Gitment({
+                id: window.location.pathname.replace(/(\/$)/g,"").length > 49 ? md5(window.location.pathname): window.location.pathname.replace(/(\/$)/g,""),
+                owner: "isecret",
+                repo: "comments",
+                oauth: {
+                    client_id: "fd2eb35d0541586fff12",
+                    client_secret: "fa17cd5c6e7d5740eef3095b2de3bc196c655b1a"
+                },
+                perPage: 10
+            });
+            gitment.render("gitment");
+        </script>
+    
+    <script>
+
+        // 切换模式
+        function detectColorScheme(){
+            var theme="light";
+
+            if(localStorage.getItem("theme")){
+                if(localStorage.getItem("theme") == "dark"){
+                    theme = "dark";
+                }
+            } else if(!window.matchMedia) {
+                return false;
+            } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                theme = "dark";
+            }
+
+            document.documentElement.setAttribute("data-theme", theme);
+        }
+
+        // 自动切换
+        window.matchMedia("(prefers-color-scheme: light)").addEventListener('change', function () {
+            detectColorScheme();
+        });
+
+        detectColorScheme();
+
+        // 手动切换 下个版本再上
+        // const toggleSwitch = document.querySelector('#theme-switch input[type="checkbox"]');
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                localStorage.setItem('theme', 'dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                toggleSwitch.checked = true;
+            } else {
+                localStorage.setItem('theme', 'light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                toggleSwitch.checked = false;
+            }    
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+
+        if (document.documentElement.getAttribute("data-theme") == "dark"){
+            toggleSwitch.checked = true;
+        }
+    </script>
+    
+    <script>
+        ALU({
+            element: document.getElementsByTagName('article')[0]
+        });
+    </script>
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js'></script>
+    <script>
+            new Valine({
+                el:'#valine',
+                appId: 'zinrpnWEAp3Kxf909ib4zoVg-MdYXbMMI',
+                appKey: 'OypFDECtu0M5LHNsSxtKYgIS',
+                avatar:'retro',
+                recordIP:true,
+                requiredFields:['nick'],
+                visitor: true,
+                emojiCDN: "//i0.hdslb.com/bfs/emote/",
+                emojiMaps: {"2021":"14d8996128d46dabd3a2ed6c172c8af918d7a5d2.png@112w_112h.webp","热词系列-仙人指路":"bf7fed28bbed40f95e08f9bab78802849b10ce63.png@112w_112h.webp","热词系列-饮茶先啦":"f4782fa5a072c766fc2b289b067ea3f19086bdf4.png@112w_112h.webp","热词系列-知识增加":"142409b595982b8210b2958f3d340f3b47942645.png@112w_112h.webp","热词系列-妙啊":"3ed5b0b2e1f632884d93abe6ae2a387e6f4395fd.png@112w_112h.webp","热词系列-吹爆":"9c78c14bd395d75afeecd20276ec71324e9b97df.png@112w_112h.webp","热词系列-你币有了":"84820c2b147a8ca02f3c4006b63f76c6313cbfa0.png@112w_112h.webp","热词系列-好耶":"ee2d354d3e67e5d77bab31ad8af99cd5ac89c009.png@112w_112h.webp","热词系列-再来亿遍":"011c8e452941c701c3f69810eaeaaed99d96b9ee.png@112w_112h.webp","热词系列-热乎":"79ba29bf44db3f05acbf0179f5969cc21cb1b0e6.png@112w_112h.webp","热词系列-好活":"7ec857e53ebaf37c59e96b5e56bcb0f05cd0b2d7.png@112w_112h.webp","热词系列-排面":"a544563e68dec3f6fcb3200cb7ea71193a0afe61.png@112w_112h.webp","热词系列-爷青回":"a26189ff1e681bddef7f6533f9aabe7604731a3e.png@112w_112h.webp","热词系列-好家伙":"63ec80dea3066bd9f449ba999ba531fa61f7b4eb.png@112w_112h.webp","热词系列-芜湖起飞":"78d04c6ce78a613c90d510cd45fe7e25c57ba00b.png@112w_112h.webp","热词系列-夺笋呐":"e763846a534e790d402ee4ef1640c9bc02aaab37.png@112w_112h.webp","热词系列-两面包夹芝士":"9903fefe88018d62fecad299f6af4eb2d588bbdc.png@112w_112h.webp","热词系列-梦幻联动":"4809416be5ca787c2ec3e897e4fd022a58da6e0e.png@112w_112h.webp","热词系列-泪目":"bba3703ab90b7d16fe9dbcb85ed949db687f8331.png@112w_112h.webp","热词系列-保护":"55f8f6445ca7c3170cdfc5b16036abf639ce9b57.png@112w_112h.webp","热词系列-爱了爱了":"2a165b555ba20391316366c664ed7891883dc5aa.png@112w_112h.webp","热词系列-三连":"21f15fe11b7a84d2f2121c16dec50a4e4556f865.png@112w_112h.webp","热词系列-可以":"e08543c71202b36c590094417fcfbb80c3506cd8.png@112w_112h.webp","热词系列-希望没事":"6c0d2e6c486d1ba5afd6204a96e102652464a01d.png@112w_112h.webp","热词系列-打卡":"a9cf77c78e1b9b40aa3ed4862402fba008ee2f51.png@112w_112h.webp","热词系列-DNA":"f6eb74f8230588f61a298af89061a7d75c5762e5.png@112w_112h.webp","热词系列-这次一定":"a01ca28923daa7cc896c42f27deb4914e20dd572.png@112w_112h.webp","热词系列-AWSL":"c37f88cf799f9badf9d84b7671dc3dd98c0fc0c2.png@112w_112h.webp","热词系列-递话筒":"98e6950e39fbb4dd1c576042063ca632074070ba.png@112w_112h.webp","热词系列-你细品":"535e00658e7e47966f154d3a167fa2365ebc4321.png@112w_112h.webp","热词系列-咕咕":"d8065c2e7ce48c929317a94553499a46fecc262a.png@112w_112h.webp","热词系列-标准结局":"3de98174b510cf7dc5fd1bd08c5d881065e79137.png@112w_112h.webp","热词系列-张三":"255a938f39cea625032b6650036b31aa26c50a3c.png@112w_112h.webp","热词系列-害":"cbe798a194612958537c5282fcca7c3bcd2aa15c.png@112w_112h.webp","热词系列-我裂开了":"29bd57ec4e8952880fea6c9e47aee924e91f10c4.png@112w_112h.webp","热词系列-有内味了":"7ca61680a905b5b6e2e335c630e725b648b03b4d.png@112w_112h.webp","热词系列-猛男必看":"9ca4f723194ff9f6f5745591132c1d70fae5a4a8.png@112w_112h.webp","热词系列-奥力给":"c9b8683827ec6c00fea5327c9bec14f581cef2aa.png@112w_112h.webp","热词系列-问号":"c1d1e76c12180adc8558f47006fe0e7ded4154bb.png@112w_112h.webp","热词系列-我哭了":"9e0b3877d649aaf6538fbdd3f937e240a9d808e4.png@112w_112h.webp","热词系列-高产":"9db817cba4a7f4a42398f3b2ec7c0a8e0c247c42.png@112w_112h.webp","热词系列-不愧是你":"9ff2e356797c57ee3b1675ade0883d2d2247be9b.png@112w_112h.webp","热词系列-真香":"e68497c775feaac1c3b1a6cd63a50cfb11b767c4.png@112w_112h.webp","热词系列-我全都要":"d424d1ad8d14c1c9b8367842bc68c658b9229bc1.png@112w_112h.webp","热词系列-神仙UP":"a49e0d0db1e7d35a0f7411be13208951ab448f03.png@112w_112h.webp","热词系列-锤":"35668cc12ae25b9545420e4a85bf21a0bfc03e5d.png@112w_112h.webp","热词系列-秀":"50782fbf5d9b7f48f9467b5c53932981e321eedc.png@112w_112h.webp","热词系列-爷关更":"faad40c56447f1f8abcb4045c17ce159d113d1fd.png@112w_112h.webp","热词系列-我酸了":"a8cbf3f6b8cd9377eeb15b9172f3cd683b2e4650.png@112w_112h.webp","热词系列-有生之年":"f41fdafe2d0fbb8e8bc1598d2cf37e355560103a.png@112w_112h.webp","热词系列-镇站之宝":"24e7a6a6e6383c987215fb905e3ee070aca259b5.png@112w_112h.webp","热词系列-我太南了":"a523f3e4c63e4db1232365765d0ec452f83be97e.png@112w_112h.webp","热词系列-完结撒花":"ea9db62ff5bca8e069cd70c4233353a802835422.png@112w_112h.webp","热词系列-大师球":"f30089248dd137c568edabcb07cf67e0f6e98cf3.png@112w_112h.webp","热词系列-知识盲区":"ccc94600b321a28116081e49ecedaa4ee8728312.png@112w_112h.webp","热词系列-“狼火”":"33ccd3617bfa89e9d1498b13b7542b63f163e5de.png@112w_112h.webp","热词系列-你可真星":"54c8ddff400abfe388060cabfbb579280fdea1be.png@112w_112h.webp","藏狐":"ba0937ef6f3ccca85e2e0047e6263f3b4da37201.png@112w_112h.webp","粽子":"177999fb7d70d891fbf63b161f26b272e08dc1de.png@112w_112h.webp","doge":"3087d273a78ccaff4bb1e9972e2ba2a7583c9f11.png@112w_112h.webp","微笑":"685612eadc33f6bc233776c6241813385844f182.png@112w_112h.webp","OK":"4683fd9ffc925fa6423110979d7dcac5eda297f4.png@112w_112h.webp","星星眼":"63c9d1a31c0da745b61cdb35e0ecb28635675db2.png@112w_112h.webp","妙啊":"b4cb77159d58614a9b787b91b1cd22a81f383535.png@112w_112h.webp","辣眼睛":"35d62c496d1e4ea9e091243fa812866f5fecc101.png@112w_112h.webp","吃瓜":"4191ce3c44c2b3df8fd97c33f85d3ab15f4f3c84.png@112w_112h.webp","滑稽":"d15121545a99ac46774f1f4465b895fe2d1411c3.png@112w_112h.webp","呲牙":"b5a5898491944a4268360f2e7a84623149672eb6.png@112w_112h.webp","打call":"431432c43da3ee5aab5b0e4f8931953e649e9975.png@112w_112h.webp","歪嘴":"4384050fbab0586259acdd170b510fe262f08a17.png@112w_112h.webp","调皮":"8290b7308325e3179d2154327c85640af1528617.png@112w_112h.webp","嗑瓜子":"28a91da1685d90124cfeead74622e1ebb417c0eb.png@112w_112h.webp","笑哭":"c3043ba94babf824dea03ce500d0e73763bf4f40.png@112w_112h.webp","脱单doge":"bf7e00ecab02171f8461ee8cf439c73db9797748.png@112w_112h.webp","给心心":"1597302b98827463f5b75c7cac1f29ea6ce572c4.png@112w_112h.webp","嘟嘟":"abd7404537d8162720ccbba9e0a8cdf75547e07a.png@112w_112h.webp","喜欢":"8a10a4d73a89f665feff3d46ca56e83dc68f9eb8.png@112w_112h.webp","酸了":"92b1c8cbceea3ae0e8e32253ea414783e8ba7806.png@112w_112h.webp","哦呼":"362bded07ea5434886271d23fa25f5d85d8af06c.png@112w_112h.webp","嫌弃":"de4c0783aaa60ec03de0a2b90858927bfad7154b.png@112w_112h.webp","大哭":"2caafee2e5db4db72104650d87810cc2c123fc86.png@112w_112h.webp","害羞":"9d2ec4e1fbd6cb1b4d12d2bbbdd124ccb83ddfda.png@112w_112h.webp","疑惑":"b7840db4b1f9f4726b7cb23c0972720c1698d661.png@112w_112h.webp","喜极而泣":"485a7e0c01c2d70707daae53bee4a9e2e31ef1ed.png@112w_112h.webp","奸笑":"bb84906573472f0a84cebad1e9000eb6164a6f5a.png@112w_112h.webp","笑":"81edf17314cea3b48674312b4364df44d5c01f17.png@112w_112h.webp","偷笑":"6c49d226e76c42cd8002abc47b3112bc5a92f66a.png@112w_112h.webp","惊讶":"f8e9a59cad52ae1a19622805696a35f0a0d853f3.png@112w_112h.webp","捂脸":"6921bb43f0c634870b92f4a8ad41dada94a5296d.png@112w_112h.webp","阴险":"ba8d5f8e7d136d59aab52c40fd3b8a43419eb03c.png@112w_112h.webp","囧":"12e41d357a9807cc80ef1e1ed258127fcc791424.png@112w_112h.webp","呆":"33ad6000d9f9f168a0976bc60937786f239e5d8c.png@112w_112h.webp","抠鼻":"cb89184c97e3f6d50acfd7961c313ce50360d70f.png@112w_112h.webp","大笑":"ca94ad1c7e6dac895eb5b33b7836b634c614d1c0.png@112w_112h.webp","惊喜":"0afecaf3a3499479af946f29749e1a6c285b6f65.png@112w_112h.webp","无语":"44667b7d9349957e903b1b62cb91fb9b13720f04.png@112w_112h.webp","点赞":"1a67265993913f4c35d15a6028a30724e83e7d35.png@112w_112h.webp","鼓掌":"895d1fc616b4b6c830cf96012880818c0e1de00d.png@112w_112h.webp","尴尬":"cb321684ed5ce6eacdc2699092ab8fe7679e4fda.png@112w_112h.webp","灵魂出窍":"43d3db7d97343c01b47e22cfabeca84b4251f35a.png@112w_112h.webp","委屈":"d2f26cbdd6c96960320af03f5514c5b524990840.png@112w_112h.webp","傲娇":"010540d0f61220a0db4922e4a679a1d8eca94f4e.png@112w_112h.webp","疼":"905fd9a99ec316e353b9bd4ecd49a5f0a301eabf.png@112w_112h.webp","冷":"cb0ebbd0668640f07ebfc0e03f7a18a8cd00b4ed.png@112w_112h.webp","生病":"0f25ce04ae1d7baf98650986454c634f6612cb76.png@112w_112h.webp","吓":"9c10c5ebc7bef27ec641b8a1877674e0c65fea5d.png@112w_112h.webp","吐":"06946bfe71ac48a6078a0b662181bb5cad09decc.png@112w_112h.webp","捂眼":"c5c6d6982e1e53e478daae554b239f2b227b172b.png@112w_112h.webp","嘘声":"e64af664d20716e090f10411496998095f62f844.png@112w_112h.webp","思考":"cfa9b7e89e4bfe04bbcd34ccb1b0df37f4fa905c.png@112w_112h.webp","再见":"fc510306bae26c9aec7e287cdf201ded27b065b9.png@112w_112h.webp","翻白眼":"eba54707c7168925b18f6f8b1f48d532fe08c2b1.png@112w_112h.webp","哈欠":"888d877729cbec444ddbd1cf4c9af155a7a06086.png@112w_112h.webp","奋斗":"bb2060c15dba7d3fd731c35079d1617f1afe3376.png@112w_112h.webp","墨镜":"3a03aebfc06339d86a68c2d893303b46f4b85771.png@112w_112h.webp","难过":"a651db36701610aa70a781fa98c07c9789b11543.png@112w_112h.webp","撇嘴":"531863568e5668c5ac181d395508a0eeb1f0cda4.png@112w_112h.webp","抓狂":"4c87afff88c22439c45b79e9d2035d21d5622eba.png@112w_112h.webp","生气":"3195714219c4b582a4fb02033dd1519913d0246d.png@112w_112h.webp","口罩":"3ad2f66b151496d2a5fb0a8ea75f32265d778dd3.png@112w_112h.webp","牛年":"9275275ff1f2659310648221107d20bc4970f106.png@112w_112h.webp","水稻":"d530fcaa5100ba12a17a79b55bad342d530c54e3.png@112w_112h.webp","福到了":"5de5373d354c373cf1617b6b836f3a8d53c5a655.png@112w_112h.webp","鸡腿":"c7860392815d345fa69c4f00ef18d67dccfbd574.png@112w_112h.webp","雪花":"a41813c4edf8782047e172c884ebd4507ce5e449.png@112w_112h.webp","视频卫星":"dce6fc7d6dfeafff01241924db60f8251cca5307.png@112w_112h.webp","干杯":"8da12d5f55a2c7e9778dcc05b40571979fe208e6.png@112w_112h.webp","爱心":"ed04066ea7124106d17ffcaf75600700e5442f5c.png@112w_112h.webp","锦鲤":"643d6c19c8164ffd89e3e9cdf093cf5d773d979c.png@112w_112h.webp","胜利":"b49fa9f4b1e7c3477918153b82c60b114d87347c.png@112w_112h.webp","加油":"c7aaeacb21e107292d3bb053e5abde4a4459ed30.png@112w_112h.webp","抱拳":"89516218158dbea18ab78e8873060bf95d33bbbe.png@112w_112h.webp","响指":"1b5c53cf14336903e1d2ae3527ca380a1256a077.png@112w_112h.webp","保佑":"fafe8d3de0dc139ebe995491d2dac458a865fb30.png@112w_112h.webp","支持":"3c210366a5585706c09d4c686a9d942b39feeb50.png@112w_112h.webp","拥抱":"41780a4254750cdaaccb20735730a36044e98ef3.png@112w_112h.webp","跪了":"f2b3aee7e521de7799d4e3aa379b01be032698ac.png@112w_112h.webp","怪我咯":"07cc6077f7f7d75b8d2c722dd9d9828a9fb9e46d.png@112w_112h.webp","黑洞":"e90ec4c799010f25391179118ccd9f66b3b279ba.png@112w_112h.webp","老鼠":"8e6fb491eb1bb0d5862e7ec8ccf9a3da12b6c155.png@112w_112h.webp","来古-沉思":"4ee07ff03266d62b246be0b950bebb2abf3d997c.png@112w_112h.webp","来古-呆滞":"9a70b365e523f2379f395031ceefcebb75a45903.png@112w_112h.webp","来古-疑问":"032fdc0d9d9fe6334776f6c39518a959b73b98f4.png@112w_112h.webp","来古-震撼":"8b40f228675602a317d32007de6b795c101135ec.png@112w_112h.webp","来古-注意":"4b671ba32a2581cf40e5cd41c67b111eb8010de0.png@112w_112h.webp","哭泣":"a61abafb8c39defc323b045f30072198007b1c89.png@112w_112h.webp","哈哈":"e6449b0bae13b8c97cc65976ff8cdc2c16be0015.png@112w_112h.webp","狗子":"6a997106af5bf490f22c80a7acf3be813ee755fc.png@112w_112h.webp","羞羞":"f4f9171e4d8c3f30827a8b96ea1ce1beb825ad50.png@112w_112h.webp","亲亲":"2f72bae7b834d499f259c833f7011d5ed8748fd1.png@112w_112h.webp","耍帅":"d7a38b08d1f1cc35b19c35041f29ffcc48808e87.png@112w_112h.webp","气愤":"069b029d17a086ab475fd331697a649e234850bb.png@112w_112h.webp","高兴":"416570a8aca7be12fb2c36e4b846906653f6d294.png@112w_112h.webp","tv-白眼":"c1d59f439e379ee50eef488bcb5e5378e5044ea4.png@112w_112h.webp","tv-doge":"6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png@112w_112h.webp","tv-坏笑":"1f0b87f731a671079842116e0991c91c2c88645a.png@112w_112h.webp","tv-难过":"87f46748d3f142ebc6586ff58860d0e2fc8263ba.png@112w_112h.webp","tv-生气":"26702dcafdab5e8225b43ffd23c94ac1ff932654.png@112w_112h.webp","tv-委屈":"d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png@112w_112h.webp","tv-斜眼笑":"911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png@112w_112h.webp","tv-呆":"fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png@112w_112h.webp","tv-发怒":"34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png@112w_112h.webp","tv-惊吓":"0d15c7e2ee58e935adc6a7193ee042388adc22af.png@112w_112h.webp","tv-呕吐":"9f996894a39e282ccf5e66856af49483f81870f3.png@112w_112h.webp","tv-思考":"90cf159733e558137ed20aa04d09964436f618a1.png@112w_112h.webp","tv-微笑":"70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png@112w_112h.webp","tv-疑问":"0793d949b18d7be716078349c202c15ff166f314.png@112w_112h.webp","tv-大哭":"23269aeb35f99daee28dda129676f6e9ea87934f.png@112w_112h.webp","tv-鼓掌":"1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png@112w_112h.webp","tv-抠鼻":"c666f55e88d471e51bbd9fab9bb308110824a6eb.png@112w_112h.webp","tv-亲亲":"a8111ad55953ef5e3be3327ef94eb4a39d535d06.png@112w_112h.webp","tv-调皮":"b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png@112w_112h.webp","tv-笑哭":"1abc628f6d4f4caf9d0e7800878f4697abbc8273.png@112w_112h.webp","tv-晕":"5443c22b4d07fb1907ccc610c8e6db254f2461b7.png@112w_112h.webp","tv-点赞":"f85c354995bd99e28fc76c869bfe42ba6438eff4.png@112w_112h.webp","tv-害羞":"a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png@112w_112h.webp","tv-睡着":"8b196675b53af58264f383c50ad0945048290b33.png@112w_112h.webp","tv-色":"61822c7e9aae5da76475e7892534545336b23a6f.png@112w_112h.webp","tv-吐血":"09dd16a7aa59b77baa1155d47484409624470c77.png@112w_112h.webp","tv-无奈":"ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png@112w_112h.webp","tv-再见":"180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png@112w_112h.webp","tv-流汗":"cead1c351ab8d79e9f369605beb90148db0fbed3.png@112w_112h.webp","tv-偷笑":"bb690d4107620f1c15cff29509db529a73aee261.png@112w_112h.webp","tv-抓狂":"fe31c08edad661d63762b04e17b8d5ae3c71a757.png@112w_112h.webp","tv-黑人问号":"45821a01f51bc867da9edbaa2e070410819a95b2.png@112w_112h.webp","tv-困":"241ee304e44c0af029adceb294399391e4737ef2.png@112w_112h.webp","tv-打脸":"56ab10b624063e966bfcb76ea5dc4794d87dfd47.png@112w_112h.webp","tv-闭嘴":"c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png@112w_112h.webp","tv-鄙视":"6e72339f346a692a495b123174b49e4e8e781303.png@112w_112h.webp","tv-腼腆":"89712c0d4af73e67f89e35cbc518420380a7f6f4.png@112w_112h.webp","tv-馋":"fc7e829b845c43c623c8b490ee3602b7f0e76a31.png@112w_112h.webp","tv-可爱":"9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png@112w_112h.webp","tv-发财":"34db290afd2963723c6eb3c4560667db7253a21a.png@112w_112h.webp","tv-生病":"8b0ec90e6b86771092a498c54f09fc94621c1900.png@112w_112h.webp","tv-流鼻血":"c32d39db2737f89b904ca32700d140a9241b0767.png@112w_112h.webp","tv-尴尬":"7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png@112w_112h.webp","tv-大佬":"093c1e2c490161aca397afc45573c877cdead616.png@112w_112h.webp","tv-流泪":"7e71cde7858f0cd50d74b0264aa26db612a8a167.png@112w_112h.webp","tv-冷漠":"b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png@112w_112h.webp","tv-皱眉":"72ccad6679fea0d14cce648b4d818e09b8ffea2d.png@112w_112h.webp","tv-鬼脸":"0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png@112w_112h.webp","tv-调侃":"4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png@112w_112h.webp","tv-目瞪口呆":"0b8cb81a68de5d5365212c99375e7ace3e7891b7.png@112w_112h.webp"},
+                //path:"/",
+                placeholder:"Just Go Go..."
+            })
+        </script>
+</body>
+</html>
