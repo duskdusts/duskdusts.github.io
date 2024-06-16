@@ -1,0 +1,320 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="baidu-site-verification" content="izYGvTM67i" />
+    
+        <meta name="keywords" content="duskdust" />
+    
+    <meta name="description" content="整理了一些经常使用的操作。  检测IP是否可用  https:&#x2F;&#x2F;www.toolsdaquan.com&#x2F;ipcheck&#x2F;  更换IP 甲骨文更换IP实例详情-附加的VNIC-VNIC详情-IP地址-更改IP地址-选择临时公共IP或者预留公共IP点击更新 Azure更换IP资源组-概览(公共IP地址)-概述(取消关联)-配置(切换动静态IP)-概述(关联)（无法切换则在开新机器的时候更改ip设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="duskdust&#39;s blog">
+<meta property="og:url" content="https://duskdust.top/2024/06/16/vps%E6%9C%89%E5%85%B3%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="duskdust&#39;s blog">
+<meta property="og:description" content="整理了一些经常使用的操作。  检测IP是否可用  https:&#x2F;&#x2F;www.toolsdaquan.com&#x2F;ipcheck&#x2F;  更换IP 甲骨文更换IP实例详情-附加的VNIC-VNIC详情-IP地址-更改IP地址-选择临时公共IP或者预留公共IP点击更新 Azure更换IP资源组-概览(公共IP地址)-概述(取消关联)-配置(切换动静态IP)-概述(关联)（无法切换则在开新机器的时候更改ip设">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-16T12:10:54.718Z">
+<meta property="article:modified_time" content="2024-06-16T12:10:54.718Z">
+<meta property="article:author" content="duskdust">
+<meta name="twitter:card" content="summary">
+    <title>迎风而立。 | duskdust&#39;s blog</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    
+        
+            <link rel="stylesheet" href="/css/fonts.css">
+        
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/hola.css">
+        
+            <link rel="stylesheet" href="/css/highlight.css">
+        
+    
+    <!-- 
+        <script type="text/javascript">
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//tajs.qq.com/stats?sId=65849732";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+     -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123139263-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-123139263-1');
+    </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div class="container">
+        <div class="header-outer">
+            <div class="header-site">
+                <div class="header-title">
+                    duskdust&#39;s blog
+                </div>
+                <div id="hot-comments" class="header-subtitle">
+                    迎风而立。
+                </div>
+            </div>
+            <div class="header-menu">
+                
+                    
+                        <span class="header-nav">
+                            <a href="/">主页</a>
+                        </span>
+                    
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    
+                        <span class="header-nav">
+                            <a href="/tags">Tags</a>
+                        </span>
+                    
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    
+                        <span class="header-nav">
+                            <a href="/links">Links</a>
+                        </span>
+                    
+                    
+                        <span class="flag">/</span>
+                    
+                
+                    
+                        <span class="header-nav">
+                            <a href="/about">About</a>
+                        </span>
+                    
+                    
+                
+            </div>
+        </div>
+
+        <div id="content-outer">
+            <div id="content-inner">
+                
+
+
+<article class="post">
+    <h1 class="post-title"></h1>
+    
+    <p>  整理了一些经常使用的操作。</p>
+<ol>
+<li><p>检测IP是否可用<br>  <a target="_blank" rel="noopener" href="https://www.toolsdaquan.com/ipcheck/">https://www.toolsdaquan.com/ipcheck/</a></p>
+</li>
+<li><p>更换IP</p>
+<p>甲骨文更换IP<br>实例详情-附加的VNIC-VNIC详情-IP地址-更改IP地址-选择临时公共IP或者预留公共IP点击更新</p>
+<p>Azure更换IP<br>资源组-概览(公共IP地址)-概述(取消关联)-配置(切换动静态IP)-概述(关联)（无法切换则在开新机器的时候更改ip设置)</p>
+</li>
+<li><p>一键快速重装系统 </p>
+<p>重装为 Ubuntu 20.04</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(wget --no-check-certificate -qO- <span class="string">&#x27;https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh&#x27;</span>) -u 20.04 -v 64 -a -p <span class="string">&quot;自定义root密码&quot;</span> -port <span class="string">&quot;自定义ssh端口&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>安装远程桌面Xrdp</p>
+<p>安装Gnome桌面环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install ubuntu-desktop</span><br><span class="line">sudo apt install xrdp </span><br><span class="line">sudo systemctl restart xrdp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>甲骨文root登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">passwd root</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo sed -i <span class="string">&#x27;s/^#\?PermitRootLogin.*/PermitRootLogin yes/g&#x27;</span> /etc/ssh/sshd_config;</span><br><span class="line">sudo sed -i <span class="string">&#x27;s/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g&#x27;</span> /etc/ssh/sshd_config;</span><br><span class="line">sudo service sshd restart</span><br></pre></td></tr></table></figure>
+<p>甲骨文防火墙相关</p>
+<p>Centos</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop oracle-cloud-agent</span><br><span class="line">systemctl <span class="built_in">disable</span> oracle-cloud-agent</span><br><span class="line">systemctl stop oracle-cloud-agent-updater</span><br><span class="line">systemctl <span class="built_in">disable</span> oracle-cloud-agent-updater</span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld.service</span><br><span class="line">vi /etc/selinux/config</span><br><span class="line">SELINUX=ENFORING修改成SELINUX=DISABLED</span><br></pre></td></tr></table></figure>
+<p>Ubuntu</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -P INPUT ACCEPT</span><br><span class="line">iptables -P FORWARD ACCEPT</span><br><span class="line">iptables -P OUTPUT ACCEPT</span><br><span class="line">iptables -F</span><br><span class="line">apt-get purge netfilter-persistent</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker快速入门</p>
+<p><a target="_blank" rel="noopener" href="https://docker.easydoc.net/">https://docker.easydoc.net/</a></p>
+</li>
+</ol>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://51.ruyo.net/14288.html">https://51.ruyo.net/14288.html</a><br><a target="_blank" rel="noopener" href="https://hostloc.com/thread-882460-1-1.html">https://hostloc.com/thread-882460-1-1.html</a><br><a target="_blank" rel="noopener" href="https://www.moeelf.com/archives/293.html">https://www.moeelf.com/archives/293.html</a><br><a target="_blank" rel="noopener" href="https://www.itcoder.tech/posts/how-to-install-xrdp-on-ubuntu-20-04/">https://www.itcoder.tech/posts/how-to-install-xrdp-on-ubuntu-20-04/</a><br><a target="_blank" rel="noopener" href="https://ednovas.xyz/2021/01/14/oraclecloud/">https://ednovas.xyz/2021/01/14/oraclecloud/</a></p>
+
+</article>
+<div class="post-footer">
+    <div class="post-author">
+        <span>编辑于 Jun 16, 2024</span>
+    </div>
+    <div class="post-category">
+        
+    </div>
+    <div class="post-tags">
+        
+    </div>
+    
+        <div class="pagination">
+            
+                <div class="nav-next nav-item">
+                    <a href="/2024/06/16/%E5%85%B3%E4%BA%8Egit%E7%9A%84%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+                        <i class="fa fa-angle-left"></i>
+                        <span></span>
+                    </a>
+                </div>
+            
+            
+                <div class="nav-prev nav-item">
+                    <a href="/2024/06/16/docker%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2freshrss/">
+                        <span></span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+    
+</div>
+<script src="https://giscus.app/client.js"
+        data-repo="duskdusts/duskdusts.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkyNTg4MjY4NDg="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOD21iYM4CSywL"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+            </div>
+        </div>
+
+        <div class="footer-outer">
+            <div class="footer-items">
+                <span class="footer-copyright">
+                    <i class="fa fa-copyright"></i>
+                </span>
+                <span class="footer-year">
+                    2016 - 2024
+                </span>
+                <span class="footer-author">
+                    duskdust
+                </span>
+                
+                    <span class="footer-wordcount">
+                        <i class="fa fa-pencil footer-icon"></i>
+                        Has 16.8k words.
+                    </span>
+                
+            </div>
+            <div class="footer-inner">
+                <span class="footer-other">
+                    <script type="text/javascript"> (function(c,l,a,r,i,t,y){ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}; t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i; y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y); })(window, document, "clarity", "script", "jt84vv66an"); </script><a href="https://icp.gov.moe/?keyword=20220678" target="_blank">萌ICP备20220678号</a> <a style="text-decoration:none;color:tomato;" href="https://travel.moe/go.html?travel=on" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！" target="_blank">异次元之旅</a> Hosted by <a target="_blank" rel="noopener" href="https://pages.dev">CloudFlare Pages</a> & <a target="_blank" rel="noopener" href="https://azure.microsoft.com/zh-cn/">Microsoft Azure</a>, 
+                    主题 <a target="_blank" rel="noopener" href="https://github.com/isecret/Hola">Hola</a> / <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a>.
+                </span>
+                <!-- <label id="theme-switch" class="theme-switch" for="checkbox_theme">
+                    <input type="checkbox" id="checkbox_theme">
+                </label> -->
+            </div>
+        </div>
+    </div>
+    
+        
+            <script src="/js/jquery.min.js"></script>
+        
+            <script src="/js/fetch.min.js"></script>
+        
+            <script src="/js/md5.min.js"></script>
+        
+            <script src="/js/hola.js"></script>
+        
+    
+
+    <script>
+
+        // 切换模式
+        function detectColorScheme(){
+            var theme="light";
+
+            if(localStorage.getItem("theme")){
+                if(localStorage.getItem("theme") == "dark"){
+                    theme = "dark";
+                }
+            } else if(!window.matchMedia) {
+                return false;
+            } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                theme = "dark";
+            }
+
+            document.documentElement.setAttribute("data-theme", theme);
+        }
+
+        // 自动切换
+        window.matchMedia("(prefers-color-scheme: light)").addEventListener('change', function () {
+            detectColorScheme();
+        });
+
+        detectColorScheme();
+
+        // 手动切换 下个版本再上
+        // const toggleSwitch = document.querySelector('#theme-switch input[type="checkbox"]');
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                localStorage.setItem('theme', 'dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                toggleSwitch.checked = true;
+            } else {
+                localStorage.setItem('theme', 'light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                toggleSwitch.checked = false;
+            }    
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+
+        if (document.documentElement.getAttribute("data-theme") == "dark"){
+            toggleSwitch.checked = true;
+        }
+    </script>
+    
+    <script>
+        ALU({
+            element: document.getElementsByTagName('article')[0]
+        });
+    </script>
+</body>
+</html>
